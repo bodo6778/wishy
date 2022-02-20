@@ -1,11 +1,25 @@
 import { theme, extendTheme } from "@chakra-ui/react";
 
+import type { Styles } from "@chakra-ui/theme-tools";
+import { mode } from "@chakra-ui/theme-tools";
+
+// setup light/dark mode global defaults
+const styles: Styles = {
+  global: (props) => ({
+    body: {
+      color: mode("gray.800", "whiteAlpha.900")(props),
+      bg: mode("#F0EDEA", "gray.900")(props),
+    },
+  }),
+};
+
 const customTheme = extendTheme({
   fonts: {
     ...theme.fonts,
     body: "Lexend, sans-serif",
     heading: "Lexend, serif",
   },
+  styles,
   colors: {
     ...theme.colors,
     /** Example */

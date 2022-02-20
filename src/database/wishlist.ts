@@ -4,6 +4,18 @@ export const wishlist = [
     description: "Something i want to read",
     price: 100,
     need: 3,
+    links: [
+      {
+        link: "emag.ro",
+        price: 122,
+        pricy: 3,
+      },
+      {
+        link: "elefant.ro",
+        price: 104,
+        pricy: 1,
+      },
+    ],
   },
   {
     title: "TV",
