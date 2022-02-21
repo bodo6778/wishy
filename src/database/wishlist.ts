@@ -1,6 +1,6 @@
 export const wishlist = [
   {
-    title: "Carte",
+    title: "📚 Carte",
     description: "Something i want to read",
     price: 100,
     need: 3,

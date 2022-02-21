@@ -11,13 +11,14 @@ const Wish: React.FC<WishProps> = ({ wish }) => {
   const [collapsed, setCollapsed] = useState(false);
 
   return (
-    <Box mb="8px">
+    <Box mb="12px">
       <Flex
         w="100%"
         justifyContent="space-between"
+        alignItems="center"
         boxShadow="0px 2px 8px rgba(0, 0, 0, 0.08)"
         px="8px"
-        pt="4px"
+        py="4px"
         borderRadius="8px"
         backgroundColor="white"
       >
@@ -47,6 +48,10 @@ const Wish: React.FC<WishProps> = ({ wish }) => {
             w={6}
             h={6}
             onClick={() => setCollapsed(!collapsed)}
+            _hover={{
+              cursor: "pointer",
+              boxShadow: "0px 2px 8px rgba(0, 0, 0, 0.08)",
+            }}
             transition="0.2s ease"
             transform={collapsed ? "rotate(-90deg)" : "rotate(0deg)"}
           />
