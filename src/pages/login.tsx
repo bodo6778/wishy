@@ -1,24 +1,64 @@
-import { Box, Button, Input } from "@chakra-ui/react";
+import { Box, Button, FormControl, FormLabel, Input } from "@chakra-ui/react";
 import AddWishlistButton from "components/wish/AddButton/AddWishlistButton";
 import Wishlist from "components/wish/Wishlist";
-import { ChangeEvent, useState } from "react";
+import { useRouter } from "next/dist/client/router";
+import { ChangeEvent, SyntheticEvent, useState } from "react";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const router = useRouter();
 
   const handleEmailChange = (e: any) => setEmail(e.target.value);
   const handlePasswordChange = (e: any) => setPassword(e.target.value);
 
+  const loginUser = async (event: SyntheticEvent) => {
+    event.preventDefault();
+    const response = await fetch("http://localhost:3001/api/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email,
+        password,
+      }),
+    });
+
+    const data = await response.json();
+
+    if (data.user) {
+      localStorage.setItem("token", data.user);
+      router.push("/");
+    } else {
+      alert("bad login");
+    }
+    console.log(data);
+  };
+
   return (
     <Box w="100%">
-      <Input placeholder="Email" value={email} onChange={handleEmailChange} />
-      <Input
-        placeholder="Password"
-        value={password}
-        onChange={handlePasswordChange}
-      />
-      <Button onClick={() => {}}>Log In</Button>
+      <form onSubmit={loginUser}>
+        <FormLabel htmlFor="email">Email address</FormLabel>
+        <Input
+          placeholder="Email"
+          id="email"
+          type="email"
+          value={email}
+          onChange={handleEmailChange}
+        />
+        <FormLabel htmlFor="password">Password</FormLabel>
+        <Input
+          placeholder="Password"
+          id="password"
+          type="password"
+          value={password}
+          onChange={handlePasswordChange}
+        />
+        <Button type="submit" onClick={loginUser}>
+          Log In
+        </Button>
+      </form>
     </Box>
   );
 };
