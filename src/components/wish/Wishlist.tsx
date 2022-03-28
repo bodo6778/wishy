@@ -10,11 +10,11 @@ interface WishlistProps {}
 const Wishlist: React.FC<WishlistProps> = () => {
   const [wishlist, setWishlist] = useState<WishType[]>();
 
-  useEffect(() => {
-    Axios.get("http://localhost:3001/").then((response: AxiosResponse) => {
-      setWishlist(response.data);
-    });
-  }, []);
+  // useEffect(() => {
+  //   Axios.get("http://localhost:3001/").then((response: AxiosResponse) => {
+  //     setWishlist(response.data);
+  //   });
+  // }, []);
 
   return (
     <Box mb="32px">

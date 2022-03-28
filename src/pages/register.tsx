@@ -18,7 +18,7 @@ const Register = () => {
   const handlePasswordChange = (e: any) => setPassword(e.target.value);
 
   const registerUser = async () => {
-    const response = await fetch("http://localhost:3001/api/register", {
+    const response = await fetch("http://localhost:3001/api/users/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
