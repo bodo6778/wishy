@@ -4,22 +4,24 @@ import Head from "next/head";
 import "@fontsource/lexend/latin.css";
 
 import Layout from "components/layout/Layout";
-
+import { RecoilRoot } from "recoil";
 import customTheme from "styles/customTheme";
 import "styles/globals.css";
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
     <ChakraProvider theme={customTheme}>
-      <Head>
-        <meta
-          name="viewport"
-          content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, viewport-fit=cover"
-        />
-      </Head>
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
+      <RecoilRoot>
+        <Head>
+          <meta
+            name="viewport"
+            content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, viewport-fit=cover"
+          />
+        </Head>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </RecoilRoot>
     </ChakraProvider>
   );
 };

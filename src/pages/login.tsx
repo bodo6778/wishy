@@ -1,10 +1,11 @@
 import { Box, Button, FormControl, FormLabel, Input } from "@chakra-ui/react";
-import AddWishlistButton from "components/wish/AddButton/AddWishlistButton";
-import Wishlist from "components/wish/Wishlist";
 import { useRouter } from "next/dist/client/router";
-import { ChangeEvent, SyntheticEvent, useState } from "react";
+import { SyntheticEvent, useState } from "react";
+import { useRecoilState } from "recoil";
+import { userState } from "state/atoms";
 
 const Login = () => {
+  const [text, setUser] = useRecoilState(userState);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
@@ -29,6 +30,7 @@ const Login = () => {
 
     if (data.success === true) {
       localStorage.setItem("token", data.token);
+      setUser(data.username);
       router.push("/");
     } else {
       alert("bad login");
