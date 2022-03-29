@@ -32,15 +32,16 @@ const Wish: React.FC<WishProps> = ({ wish }) => {
             {wish.price}$
           </Text>
           <Flex px="4px" alignItems="center">
-            {[...Array(wish.need)].map((star) => (
-              <StarIcon color="yellow.500" size="1rem" p="1px" />
+            {[...Array(wish.need)].map((_, index) => (
+              <StarIcon color="yellow.500" size="1rem" p="1px" key={index} />
             ))}
-            {[...Array(3 - wish.need)].map((star) => (
+            {[...Array(3 - wish.need)].map((_, index) => (
               <StarIcon
                 color="transparent"
                 size="1rem"
                 stroke="yellow.500"
                 p="1px"
+                key={index}
               />
             ))}
           </Flex>
@@ -70,13 +71,14 @@ const Wish: React.FC<WishProps> = ({ wish }) => {
             columns={1}
             rowGap="8px"
           >
-            {wish.links?.map((link) => (
+            {wish.links?.map((link, index) => (
               <Flex
                 backgroundColor="white"
                 w="100%"
                 borderRadius="8px"
                 justifyContent="space-between"
                 p="4px"
+                key={index}
               >
                 <Text color="blackAlpha.400" fontSize="16px" px="4px">
                   {link.link}
@@ -86,7 +88,7 @@ const Wish: React.FC<WishProps> = ({ wish }) => {
                     {link.price}$
                   </Text>
                   <Flex px="4px" alignItems="center">
-                    {[...Array(link.pricy)].map((star) => (
+                    {[...Array(link.pricy)].map((_) => (
                       <>$</>
                     ))}
                   </Flex>

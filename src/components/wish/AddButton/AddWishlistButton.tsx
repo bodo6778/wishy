@@ -5,7 +5,7 @@ import AddButton from "./AddButton";
 const AddWishlistButton: React.FC = () => {
   return (
     <AddButton
-      type="wishlist"
+      customType="wishlist"
       text="Add Wishlist"
       icon={<AddIcon color="#9B9B9B" w={4} h={4} mr="4px" />}
     />

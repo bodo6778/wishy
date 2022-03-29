@@ -9,6 +9,7 @@ const Register = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [password2, setPassword2] = useState("");
 
   const router = useRouter();
 
@@ -16,6 +17,7 @@ const Register = () => {
   const handleUsernameChange = (e: any) => setUsername(e.target.value);
   const handleEmailChange = (e: any) => setEmail(e.target.value);
   const handlePasswordChange = (e: any) => setPassword(e.target.value);
+  const handlePassword2Change = (e: any) => setPassword2(e.target.value);
 
   const registerUser = async () => {
     const response = await fetch("http://localhost:3001/api/users/register", {
@@ -28,6 +30,7 @@ const Register = () => {
         username,
         email,
         password,
+        password2,
       }),
     });
 
@@ -48,8 +51,15 @@ const Register = () => {
       <Input placeholder="Email" value={email} onChange={handleEmailChange} />
       <Input
         placeholder="Password"
+        type="password"
         value={password}
         onChange={handlePasswordChange}
+      />
+      <Input
+        placeholder="Repeat Password"
+        type="password"
+        value={password2}
+        onChange={handlePassword2Change}
       />
       <Button onClick={registerUser}>Sign In</Button>
     </Box>

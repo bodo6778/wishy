@@ -1,4 +1,4 @@
-import { Box, Flex, Heading } from "@chakra-ui/react";
+import { Box, Button, Flex, Heading } from "@chakra-ui/react";
 
 import AccessibleLink from "components/AccessibleLink";
 import ThemeToggle from "./ThemeToggle";
@@ -13,6 +13,13 @@ const Header = () => {
       </AccessibleLink>
 
       <Box marginLeft="auto">
+        <Button
+          onClick={() => {
+            localStorage.removeItem("token");
+          }}
+        >
+          Log Out
+        </Button>
         <ThemeToggle />
       </Box>
     </Flex>
