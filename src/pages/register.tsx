@@ -1,8 +1,6 @@
 import { Box, Button, Input } from "@chakra-ui/react";
-import AddWishlistButton from "components/wish/AddButton/AddWishlistButton";
-import Wishlist from "components/wish/Wishlist";
 import { useRouter } from "next/dist/client/router";
-import { ChangeEvent, useState } from "react";
+import { useState } from "react";
 
 const Register = () => {
   const [name, setName] = useState("");

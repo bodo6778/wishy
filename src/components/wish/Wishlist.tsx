@@ -1,16 +1,16 @@
 import { Box, Text } from "@chakra-ui/react";
-import Axios, { AxiosResponse } from "axios";
 import React, { useEffect, useState } from "react";
 import { WishType } from "types/wish";
 import AddWishButton from "./AddButton/AddWishButton";
-import jwt from "jsonwebtoken";
 import Wish from "./Wish";
+import { useRecoilValue } from "recoil";
+import { getStorageValue } from "../../../utils/functions";
 
 interface WishlistProps {}
 
 const Wishlist: React.FC<WishlistProps> = () => {
-  // const [wishlist, setWishlist] = useState<WishType[]>();
   const [wishlist, setWishlist] = useState<WishType[]>();
+  const token = getStorageValue("token");
 
   // useEffect(() => {
   //   Axios.get("http://localhost:3001/").then((response: AxiosResponse) => {
@@ -19,7 +19,6 @@ const Wishlist: React.FC<WishlistProps> = () => {
   // }, []);
 
   const populateWishlist = async () => {
-    const token = localStorage.getItem("token");
     if (!token) return;
 
     const req = await fetch("http://localhost:3001/api/wishes/getWishlist", {
@@ -29,7 +28,6 @@ const Wishlist: React.FC<WishlistProps> = () => {
     });
 
     const data = await req.json();
-    console.log(req);
 
     if (req.ok === true) {
       setWishlist(data);
@@ -37,15 +35,8 @@ const Wishlist: React.FC<WishlistProps> = () => {
   };
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      const user = jwt.decode(token);
-      if (!user) {
-        localStorage.removeItem("token");
-      } else {
-        populateWishlist();
-      }
-    }
+    if (!token) return;
+    populateWishlist();
   }, []);
 
   return (

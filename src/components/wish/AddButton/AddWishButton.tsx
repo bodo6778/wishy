@@ -1,6 +1,7 @@
 import { AddIcon, CheckCircleIcon } from "@chakra-ui/icons";
 import { Input, Stack } from "@chakra-ui/react";
 import React, { useState } from "react";
+import { getStorageValue } from "../../../../utils/functions";
 import AddButton from "./AddButton";
 
 const AddWishButton: React.FC = () => {
@@ -16,7 +17,7 @@ const AddWishButton: React.FC = () => {
   const handleNeedChange = (e: any) => setNeed(e.target.value);
 
   const addWish = async () => {
-    const token = localStorage.getItem("token");
+    const token = getStorageValue("token");
     if (!token) return;
 
     const response = await fetch("http://localhost:3001/api/wishes/add", {

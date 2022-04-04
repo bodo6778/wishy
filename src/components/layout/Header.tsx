@@ -1,9 +1,14 @@
 import { Box, Button, Flex, Heading } from "@chakra-ui/react";
 
 import AccessibleLink from "components/AccessibleLink";
+import { useRouter } from "next/dist/client/router";
+import { deleteStorageValue, getStorageValue } from "../../../utils/functions";
 import ThemeToggle from "./ThemeToggle";
 
 const Header = () => {
+  const router = useRouter();
+  const token = getStorageValue("token");
+
   return (
     <Flex as="header" width="full" align="center">
       <AccessibleLink href="/">
@@ -15,10 +20,15 @@ const Header = () => {
       <Box marginLeft="auto">
         <Button
           onClick={() => {
-            localStorage.removeItem("token");
+            if (token) {
+              router.asPath === "/" ? router.reload() : router.push("/");
+              deleteStorageValue("token");
+            } else {
+              router.push("/login");
+            }
           }}
         >
-          Log Out
+          {token ? "Log Out" : "Log In"}
         </Button>
         <ThemeToggle />
       </Box>
