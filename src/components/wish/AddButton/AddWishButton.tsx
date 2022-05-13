@@ -1,10 +1,14 @@
-import { AddIcon, CheckCircleIcon } from "@chakra-ui/icons";
-import { Input, Stack } from "@chakra-ui/react";
+import { AddIcon, CheckCircleIcon, SmallCloseIcon } from "@chakra-ui/icons";
+import { Flex, IconButton, Input, Stack } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { getStorageValue } from "../../../../utils/functions";
 import AddButton from "./AddButton";
 
-const AddWishButton: React.FC = () => {
+interface AddWishButtonProps {
+  wishlistTitle: string;
+}
+
+const AddWishButton: React.FC<AddWishButtonProps> = ({ wishlistTitle }) => {
   const [showForm, setShowForm] = useState(false);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -26,8 +30,8 @@ const AddWishButton: React.FC = () => {
         "x-access-token": token,
         "Content-Type": "application/json",
       },
-      // BODY UL VINE GOL!!!!!!!!!!!
       body: JSON.stringify({
+        wishlistTitle,
         title,
         description,
         price,
@@ -73,21 +77,28 @@ const AddWishButton: React.FC = () => {
                 value={need}
                 onChange={handleNeedChange}
               />
-              <AddButton
-                customType="wish"
-                type="submit"
-                text="Add"
-                icon={<CheckCircleIcon color="#9B9B9B" w={4} h={4} mr="4px" />}
-                onClick={() => {
-                  addWish();
-                  setShowForm(!showForm);
-                }}
-              />
+              <Flex justifyContent="space-between" alignItems="center">
+                <AddButton
+                  customType="wish"
+                  type="submit"
+                  text="Add"
+                  icon={
+                    <CheckCircleIcon color="#9B9B9B" w={4} h={4} mr="4px" />
+                  }
+                  width="96%"
+                  onClick={() => {
+                    setShowForm(!showForm);
+                  }}
+                />
+                <IconButton
+                  aria-label="Delete Wishlist"
+                  icon={<SmallCloseIcon />}
+                  colorScheme="red"
+                  size="xs"
+                  onClick={() => setShowForm(!showForm)}
+                />
+              </Flex>
             </Stack>
-
-            {/* <Button  onClick={loginUser}>
-              Log In
-            </Button> */}
           </form>
         </>
       ) : (

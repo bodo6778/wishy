@@ -12,4 +12,8 @@ export type WishType = {
   links?: Link[];
 };
 
-export type Wishlist = WishType[];
+export type WishlistType = {
+  title: string;
+  description: string;
+  wishes: WishType[];
+};

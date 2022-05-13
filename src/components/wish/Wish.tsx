@@ -1,13 +1,23 @@
-import { ChevronLeftIcon, StarIcon } from "@chakra-ui/icons";
-import { Text, Flex, Box, SimpleGrid, Collapse } from "@chakra-ui/react";
+import { ChevronLeftIcon, DeleteIcon, StarIcon } from "@chakra-ui/icons";
+import {
+  Text,
+  Flex,
+  Box,
+  SimpleGrid,
+  Collapse,
+  Button,
+} from "@chakra-ui/react";
 import React, { useState } from "react";
 import { WishType } from "types/wish";
+import AddLink from "./link/AddLink";
+import LinkBar from "./link/LinkBar";
 
 interface WishProps {
   wish: WishType;
+  wishlistTitle: string;
 }
 
-const Wish: React.FC<WishProps> = ({ wish }) => {
+const Wish: React.FC<WishProps> = ({ wish, wishlistTitle }) => {
   const [collapsed, setCollapsed] = useState(false);
 
   return (
@@ -72,29 +82,19 @@ const Wish: React.FC<WishProps> = ({ wish }) => {
             rowGap="8px"
           >
             {wish.links?.map((link, index) => (
-              <Flex
-                backgroundColor="white"
-                w="100%"
-                borderRadius="8px"
-                justifyContent="space-between"
-                p="4px"
-                key={index}
-              >
-                <Text color="blackAlpha.400" fontSize="16px" px="4px">
-                  {link.link}
-                </Text>
-                <Flex>
-                  <Text color="blackAlpha.400" px="4px">
-                    {link.price}$
-                  </Text>
-                  <Flex px="4px" alignItems="center">
-                    {[...Array(link.pricy)].map((_) => (
-                      <>$</>
-                    ))}
-                  </Flex>
-                </Flex>
-              </Flex>
+              <LinkBar link={link} key={index} />
             ))}
+            <Flex justifyContent="flex-end">
+              <AddLink wishTitle={wish.title} wishlistTitle={wishlistTitle} />
+              <Button
+                aria-label="Delete Wish"
+                colorScheme="red"
+                size="sm"
+                ml={2}
+              >
+                Delete Wish
+              </Button>
+            </Flex>
           </SimpleGrid>
         </Box>
       </Collapse>

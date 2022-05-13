@@ -16,6 +16,7 @@ const AddWishlistButton: React.FC<AddButtonProps & ButtonProps> = ({
   icon,
   onClick,
   type,
+  ...props
 }) => {
   return (
     <Button
@@ -40,6 +41,7 @@ const AddWishlistButton: React.FC<AddButtonProps & ButtonProps> = ({
       }}
       onClick={onClick}
       type={type}
+      {...props}
     >
       {icon}
       {text}
