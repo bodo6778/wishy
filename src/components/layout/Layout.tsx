@@ -1,7 +1,5 @@
 import { Box, Flex } from "@chakra-ui/react";
 import { ReactNode, useEffect } from "react";
-import { useSetRecoilState } from "recoil";
-import { userState } from "state/atoms";
 import { getStorageValue } from "../../../utils/functions";
 
 import Header from "./Header";
@@ -13,7 +11,6 @@ type LayoutProps = {
 
 const Layout = ({ children }: LayoutProps) => {
   const token = getStorageValue("token");
-  const setUser = useSetRecoilState(userState);
 
   const getUser = async () => {
     if (!token) return;
@@ -24,13 +21,6 @@ const Layout = ({ children }: LayoutProps) => {
       },
     });
     const data = await req.json();
-    if (req.ok === true) {
-      setUser({
-        name: data.name,
-        email: data.email,
-        username: data.username,
-      });
-    }
   };
 
   useEffect(() => {

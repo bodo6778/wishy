@@ -6,17 +6,26 @@ import {
 } from "@chakra-ui/icons";
 import { Input, Box, Flex, IconButton } from "@chakra-ui/react";
 import React, { useState } from "react";
+import { WishlistType } from "types/wish";
 import { getStorageValue } from "../../../../utils/functions";
 import AddButton from "./AddButton";
 
-const AddWishlistButton: React.FC = () => {
+interface AddWishlistButtonProps {
+  wishlists: WishlistType[];
+  setWishlist: React.Dispatch<React.SetStateAction<WishlistType[]>>;
+  // setWishlist: (x: WishlistType[]) => void;
+}
+
+const AddWishlistButton: React.FC<AddWishlistButtonProps> = ({
+  wishlists,
+  setWishlist,
+}) => {
   const [showForm, setShowForm] = useState(false);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
 
   const handleTitleChange = (e: any) => setTitle(e.target.value);
   const handleDescriptionChange = (e: any) => setDescription(e.target.value);
-
   const addWishlist = async () => {
     const token = getStorageValue("token");
     if (!token) return;
@@ -34,6 +43,15 @@ const AddWishlistButton: React.FC = () => {
     });
 
     const data = await response.json();
+
+    if (data.status === "ok") {
+      const newWishlist: WishlistType = {
+        title: title,
+        description: description,
+        wishes: [],
+      };
+      setWishlist((prev: WishlistType[]) => prev.concat(newWishlist));
+    }
     if (data.status !== "ok") {
       console.log(data);
     }

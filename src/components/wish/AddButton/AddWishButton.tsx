@@ -88,6 +88,11 @@ const AddWishButton: React.FC<AddWishButtonProps> = ({ wishlistTitle }) => {
                   width="96%"
                   onClick={() => {
                     setShowForm(!showForm);
+                    setTitle("");
+                    setDescription("");
+                    setPrice("");
+                    setNeed("");
+                    addWish();
                   }}
                 />
                 <IconButton

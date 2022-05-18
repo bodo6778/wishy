@@ -9,6 +9,7 @@ import {
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { WishType } from "types/wish";
+import DeleteButton from "./DeleteButton/DeleteButton";
 import AddLink from "./link/AddLink";
 import LinkBar from "./link/LinkBar";
 
@@ -18,6 +19,7 @@ interface WishProps {
 }
 
 const Wish: React.FC<WishProps> = ({ wish, wishlistTitle }) => {
+  const [showDeleteButton, setShowDeleteButton] = useState("none");
   const [collapsed, setCollapsed] = useState(false);
 
   return (
@@ -31,7 +33,21 @@ const Wish: React.FC<WishProps> = ({ wish, wishlistTitle }) => {
         py="4px"
         borderRadius="8px"
         backgroundColor="white"
+        onMouseEnter={(e) => {
+          setShowDeleteButton("block");
+        }}
+        onMouseLeave={(e) => {
+          setShowDeleteButton("none");
+        }}
+        position="relative"
       >
+        <DeleteButton
+          showDeleteButton={showDeleteButton}
+          onClick={function (): void {
+            throw new Error("Function not implemented.");
+          }}
+          top="-8px"
+        />
         <Text px="4px">{wish.title}</Text>
 
         <Flex py="4px">
@@ -86,14 +102,6 @@ const Wish: React.FC<WishProps> = ({ wish, wishlistTitle }) => {
             ))}
             <Flex justifyContent="flex-end">
               <AddLink wishTitle={wish.title} wishlistTitle={wishlistTitle} />
-              <Button
-                aria-label="Delete Wish"
-                colorScheme="red"
-                size="sm"
-                ml={2}
-              >
-                Delete Wish
-              </Button>
             </Flex>
           </SimpleGrid>
         </Box>
