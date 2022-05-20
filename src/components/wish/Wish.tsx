@@ -8,7 +8,10 @@ import {
   Button,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
+import { useSetRecoilState } from "recoil";
+import { wishlistsState } from "state/atoms";
 import { WishType } from "types/wish";
+import { getStorageValue } from "../../../utils/functions";
 import DeleteButton from "./DeleteButton/DeleteButton";
 import AddLink from "./link/AddLink";
 import LinkBar from "./link/LinkBar";
@@ -19,8 +22,46 @@ interface WishProps {
 }
 
 const Wish: React.FC<WishProps> = ({ wish, wishlistTitle }) => {
+  const setWishlist = useSetRecoilState(wishlistsState);
   const [showDeleteButton, setShowDeleteButton] = useState("none");
   const [collapsed, setCollapsed] = useState(false);
+
+  const deleteWishlist = async () => {
+    const token = getStorageValue("token");
+    if (!token) return;
+    const wishToDeleteTitle = wish?.title;
+
+    try {
+      await fetch("http://localhost:3001/api/wishes/delete", {
+        method: "DELETE",
+        headers: {
+          "x-access-token": token,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          wishlistTitle,
+          wishTitle: wishToDeleteTitle,
+        }),
+      });
+      setWishlist((prevWishlist) => {
+        // Find the wishlish by the title and filter wishlist.wishes so the current wish is deleted
+        // newWishes[] is the new array that does not contain the current Wish
+        const newWishes = prevWishlist
+          .find((w) => w.title === wishlistTitle)
+          ?.wishes?.filter((wish) => wish.title !== wishToDeleteTitle);
+
+        return newWishes // Null check for newWish
+          ? prevWishlist.map((wishlist) =>
+              wishlist.title === wishlistTitle //This should find only the wishlish that we search for, because the wishlists have unique titles.
+                ? { ...wishlist, wishes: newWishes } // If the current wishlist is found, modify it's wishes[] with newWishes[]
+                : wishlist
+            )
+          : prevWishlist; // Return previous state value if newWish is null
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <Box mb="12px">
@@ -43,9 +84,7 @@ const Wish: React.FC<WishProps> = ({ wish, wishlistTitle }) => {
       >
         <DeleteButton
           showDeleteButton={showDeleteButton}
-          onClick={function (): void {
-            throw new Error("Function not implemented.");
-          }}
+          onClick={deleteWishlist}
           top="-8px"
         />
         <Text px="4px">{wish.title}</Text>
