@@ -1,5 +1,6 @@
 import { atom, selector } from "recoil";
 import jwt from "jsonwebtoken";
+import { WishlistType } from "types/wish";
 
 type loginState = {
   localValue: string | null;
@@ -20,19 +21,7 @@ export const userState = atom({
   }, // default value (aka initial value)
 });
 
-// export const authSelector = selector({
-//   key: "authState",
-//   get: ({ get }) => {
-//     const token = get(tokenState).localValue;
-
-//     if (!token) return false;
-//     const user = jwt.decode(token);
-//     if (!user || user !== get(userState)) if (!token) return false;
-
-//     return true;
-//   },
-//   set: ({ get, set }) => {
-//     localStorage.removeItem("token");
-//     set(userState, undefined);
-//   },
-// });
+export const wishlistsState = atom({
+  key: "wishlistsAtom",
+  default: [] as WishlistType[],
+});

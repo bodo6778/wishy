@@ -26,8 +26,8 @@ const LinkBar: React.FC<LinkBarProps> = ({ link, onDelete }) => {
             {link.price}$
           </Text>
           <Flex px="4px" alignItems="center">
-            {[...Array(link.pricy)].map((_) => (
-              <>$</>
+            {[...Array(link.pricy)].map((_, key) => (
+              <p key={key}>$</p>
             ))}
           </Flex>
         </Flex>

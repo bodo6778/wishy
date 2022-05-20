@@ -6,20 +6,16 @@ import {
 } from "@chakra-ui/icons";
 import { Input, Box, Flex, IconButton } from "@chakra-ui/react";
 import React, { useState } from "react";
+import { useSetRecoilState } from "recoil";
+import { wishlistsState } from "state/atoms";
 import { WishlistType } from "types/wish";
 import { getStorageValue } from "../../../../utils/functions";
 import AddButton from "./AddButton";
 
-interface AddWishlistButtonProps {
-  wishlists: WishlistType[];
-  setWishlist: React.Dispatch<React.SetStateAction<WishlistType[]>>;
-  // setWishlist: (x: WishlistType[]) => void;
-}
+interface AddWishlistButtonProps {}
 
-const AddWishlistButton: React.FC<AddWishlistButtonProps> = ({
-  wishlists,
-  setWishlist,
-}) => {
+const AddWishlistButton: React.FC<AddWishlistButtonProps> = ({}) => {
+  const setWishlist = useSetRecoilState(wishlistsState);
   const [showForm, setShowForm] = useState(false);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");

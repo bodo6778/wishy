@@ -3,16 +3,17 @@ import React, { useEffect, useState } from "react";
 import { WishlistType, WishType } from "types/wish";
 import AddWishButton from "./AddButton/AddWishButton";
 import Wish from "./Wish";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { getStorageValue } from "../../../utils/functions";
 import { CloseIcon } from "@chakra-ui/icons";
 import OneWishlist from "components/wish/OneWishlist";
 import AddWishlistButton from "./AddButton/AddWishlistButton";
+import { wishlistsState } from "state/atoms";
 
 interface WishlistProps {}
 
 const Wishlist: React.FC<WishlistProps> = () => {
-  const [wishlists, setWishlist] = useState<WishlistType[]>([]);
+  const [wishlists, setWishlist] = useRecoilState(wishlistsState);
   const token = getStorageValue("token");
 
   // useEffect(() => {
@@ -44,10 +45,10 @@ const Wishlist: React.FC<WishlistProps> = () => {
 
   return (
     <Box mb="32px">
-      {wishlists?.map((wishlist: WishlistType) => (
-        <OneWishlist wishlist={wishlist} />
+      {wishlists?.map((wishlist: WishlistType, key) => (
+        <OneWishlist wishlist={wishlist} key={key} />
       ))}
-      <AddWishlistButton wishlists={wishlists} setWishlist={setWishlist} />
+      <AddWishlistButton />
     </Box>
   );
 };

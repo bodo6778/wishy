@@ -1,6 +1,9 @@
 import { AddIcon, CheckCircleIcon, SmallCloseIcon } from "@chakra-ui/icons";
 import { Flex, IconButton, Input, Stack } from "@chakra-ui/react";
 import React, { useState } from "react";
+import { useSetRecoilState } from "recoil";
+import { wishlistsState } from "state/atoms";
+import { WishType } from "types/wish";
 import { getStorageValue } from "../../../../utils/functions";
 import AddButton from "./AddButton";
 
@@ -9,7 +12,9 @@ interface AddWishButtonProps {
 }
 
 const AddWishButton: React.FC<AddWishButtonProps> = ({ wishlistTitle }) => {
+  const setWishlist = useSetRecoilState(wishlistsState);
   const [showForm, setShowForm] = useState(false);
+
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
@@ -24,24 +29,50 @@ const AddWishButton: React.FC<AddWishButtonProps> = ({ wishlistTitle }) => {
     const token = getStorageValue("token");
     if (!token) return;
 
-    const response = await fetch("http://localhost:3001/api/wishes/add", {
-      method: "POST",
-      headers: {
-        "x-access-token": token,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        wishlistTitle,
-        title,
-        description,
-        price,
-        need,
-      }),
-    });
+    try {
+      await fetch("http://localhost:3001/api/wishes/add", {
+        method: "POST",
+        headers: {
+          "x-access-token": token,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          wishlistTitle,
+          title,
+          description,
+          price,
+          need,
+        }),
+      });
 
-    const data = await response.json();
-    if (data.status !== "ok") {
-      console.log(data);
+      const newWish: WishType = {
+        title: title,
+        description: description,
+        price: parseInt(price),
+        need: parseInt(need),
+        links: [],
+      };
+
+      setWishlist((prevWishlists) => {
+        // Find the wishlish by the title and concatanete newWish with wishlist.wishes
+        const newWishes = prevWishlists
+          .find((w) => w.title === wishlistTitle)
+          ?.wishes?.concat(newWish);
+
+        return newWishes // Null check for newWish
+          ? prevWishlists.map(
+              (wishlist) =>
+                wishlist.title === wishlistTitle //This should find only the wishlish that we search for, because the wishlists have unique titles.
+                  ? { ...wishlist, wishes: newWishes }
+                  : wishlist // Use .map to find the wishlist we want to modify by it's title. If found, return the wishlist and add wishes: newWishes. If not, return the wishlist as is
+            )
+          : prevWishlists; // Return previous state value if newWish is null
+      });
+      // replace tempWishes la whislists[title].wishes sau adauga la el
+
+      // const data = await response.json();
+    } catch (error) {
+      console.log(error);
     }
   };
 

@@ -1,18 +1,20 @@
-import { Box, IconButton, Text } from "@chakra-ui/react";
-import { CloseIcon } from "@chakra-ui/icons";
-import { wishlist } from "database/wishlist";
+import { Text } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { WishlistType, WishType } from "types/wish";
 import AddWishButton from "./AddButton/AddWishButton";
 import Wish from "./Wish";
 import { getStorageValue } from "../../../utils/functions";
 import DeleteButton from "./DeleteButton/DeleteButton";
+import { useRecoilState } from "recoil";
+import { wishlistsState } from "state/atoms";
 
 interface OneWishlistProps {
   wishlist: WishlistType;
 }
 
 const OneWishlist: React.FC<OneWishlistProps> = ({ wishlist }) => {
+  const [wishlists, setWishlist] = useRecoilState(wishlistsState);
+
   const [showDeleteButton, setShowDeleteButton] = useState("none");
   const title = wishlist.title;
 
@@ -32,10 +34,15 @@ const OneWishlist: React.FC<OneWishlistProps> = ({ wishlist }) => {
     });
 
     const data = await response.json();
+    if (data.status === "ok") {
+      setWishlist(wishlists.filter((wishlist) => wishlist.title !== title)); // Filter the wishlists[] by title to delete the current wishlist
+    }
     if (data.status !== "ok") {
       console.log(data);
     }
   };
+
+  console.log(wishlists);
 
   return (
     <>
@@ -59,10 +66,8 @@ const OneWishlist: React.FC<OneWishlistProps> = ({ wishlist }) => {
         />
       </Text>
 
-      {wishlist.wishes?.map((wish: WishType) => {
-        return (
-          <Wish wish={wish} key={wish.title} wishlistTitle={wishlist.title} />
-        );
+      {wishlist.wishes?.map((wish: WishType, key) => {
+        return <Wish wish={wish} wishlistTitle={wishlist.title} key={key} />;
       })}
       <AddWishButton wishlistTitle={wishlist.title} />
     </>
