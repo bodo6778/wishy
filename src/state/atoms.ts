@@ -15,9 +15,10 @@ type userProfileState = {
 export const userState = atom({
   key: "userAtom", // unique ID (with respect to other atoms/selectors)
   default: {
-    username: null,
-    email: null,
-    name: null,
+    username: "",
+    email: "",
+    name: "",
+    description: "",
   }, // default value (aka initial value)
 });
 

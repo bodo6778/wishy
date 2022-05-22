@@ -30,6 +30,7 @@ const Header = () => {
           </Button>
         )}
         <Button
+          px={4}
           onClick={() => {
             if (token) {
               router.asPath === "/" ? router.reload() : router.push("/");
