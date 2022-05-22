@@ -18,6 +18,17 @@ const Header = () => {
       </AccessibleLink>
 
       <Box marginLeft="auto">
+        {token && (
+          <Button
+            onClick={() => {
+              router.push("/profile");
+            }}
+            mr={4}
+            colorScheme="teal"
+          >
+            My Profile
+          </Button>
+        )}
         <Button
           onClick={() => {
             if (token) {
@@ -27,6 +38,8 @@ const Header = () => {
               router.push("/login");
             }
           }}
+          mr={4}
+          colorScheme="teal"
         >
           {token ? "Log Out" : "Log In"}
         </Button>

@@ -45,7 +45,6 @@ const OneWishlist: React.FC<OneWishlistProps> = ({ wishlist }) => {
   return (
     <>
       <Text
-        mb="16px"
         fontWeight="bold"
         fontSize="24px"
         onMouseEnter={(e) => {

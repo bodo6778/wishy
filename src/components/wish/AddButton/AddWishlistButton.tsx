@@ -96,6 +96,7 @@ const AddWishlistButton: React.FC<AddWishlistButtonProps> = ({}) => {
         </>
       ) : (
         <AddButton
+          mt={8}
           customType="wishlist"
           text="Add Wishlist"
           icon={<AddIcon color="#9B9B9B" w={4} h={4} mr="4px" />}

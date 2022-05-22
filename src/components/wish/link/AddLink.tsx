@@ -106,7 +106,7 @@ const AddLink: React.FC<AddLinkProps> = ({
       ) : (
         <Button
           size="sm"
-          colorScheme="green"
+          colorScheme="teal"
           onClick={() => setShowForm(!showForm)}
         >
           Add Link
