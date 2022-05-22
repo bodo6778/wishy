@@ -42,8 +42,6 @@ const OneWishlist: React.FC<OneWishlistProps> = ({ wishlist }) => {
     }
   };
 
-  console.log(wishlists);
-
   return (
     <>
       <Text

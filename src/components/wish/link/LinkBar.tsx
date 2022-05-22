@@ -2,13 +2,47 @@ import { SmallCloseIcon } from "@chakra-ui/icons";
 import { Flex, IconButton, Text } from "@chakra-ui/react";
 import React from "react";
 import { Link } from "types/wish";
+import { getStorageValue } from "../../../../utils/functions";
 
 interface LinkBarProps {
   link: Link;
-  onDelete?: () => void;
+  setLinksState: React.Dispatch<React.SetStateAction<Link[]>>;
+  wishTitle: string;
+  wishlistTitle: string;
 }
 
-const LinkBar: React.FC<LinkBarProps> = ({ link, onDelete }) => {
+const LinkBar: React.FC<LinkBarProps> = ({
+  link,
+  setLinksState,
+  wishTitle,
+  wishlistTitle,
+}) => {
+  const deleteLink = async () => {
+    const token = getStorageValue("token");
+    if (!token) return;
+
+    try {
+      await fetch("http://localhost:3001/api/wishes/deleteLink", {
+        method: "DELETE",
+        headers: {
+          "x-access-token": token,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          wishlistTitle: wishlistTitle,
+          wishTitle: wishTitle,
+          linkTitle: link.link,
+        }),
+      });
+
+      setLinksState((prevLinks) =>
+        prevLinks.filter((l) => l.link !== link.link)
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <Flex>
       <Flex
@@ -37,7 +71,7 @@ const LinkBar: React.FC<LinkBarProps> = ({ link, onDelete }) => {
         icon={<SmallCloseIcon color="red" />}
         bg="transparent"
         size="sm"
-        onClick={onDelete}
+        onClick={deleteLink}
       />
     </Flex>
   );

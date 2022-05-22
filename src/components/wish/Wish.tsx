@@ -15,6 +15,7 @@ import { getStorageValue } from "../../../utils/functions";
 import DeleteButton from "./DeleteButton/DeleteButton";
 import AddLink from "./link/AddLink";
 import LinkBar from "./link/LinkBar";
+import LinkList from "./link/LinkList";
 
 interface WishProps {
   wish: WishType;
@@ -126,25 +127,11 @@ const Wish: React.FC<WishProps> = ({ wish, wishlistTitle }) => {
 
       {/* show when collapsed */}
       {/* {collapsed && ( */}
-      <Collapse in={collapsed}>
-        <Box w="100%" px="8px">
-          <SimpleGrid
-            backgroundColor="#E4E4E4"
-            p="8px"
-            borderBottomRadius="8px"
-            w="100%"
-            columns={1}
-            rowGap="8px"
-          >
-            {wish.links?.map((link, index) => (
-              <LinkBar link={link} key={index} />
-            ))}
-            <Flex justifyContent="flex-end">
-              <AddLink wishTitle={wish.title} wishlistTitle={wishlistTitle} />
-            </Flex>
-          </SimpleGrid>
-        </Box>
-      </Collapse>
+      <LinkList
+        collapsed={collapsed}
+        wish={wish}
+        wishlistTitle={wishlistTitle}
+      />
     </Box>
   );
 };
