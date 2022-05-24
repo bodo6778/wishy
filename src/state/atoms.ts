@@ -6,13 +6,14 @@ type loginState = {
   localValue: string | null;
 };
 
-type userProfileState = {
-  username: string | null;
-  email: string | null;
-  name: string | null;
+export type userProfileState = {
+  username: string;
+  email: string;
+  name: string;
+  description: string;
 };
 
-export const userState = atom({
+export const userState = atom<userProfileState>({
   key: "userAtom", // unique ID (with respect to other atoms/selectors)
   default: {
     username: "",

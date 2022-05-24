@@ -43,6 +43,8 @@ const Login = () => {
           type="email"
           value={email}
           onChange={handleEmailChange}
+          mb={4}
+          isRequired
         />
         <FormLabel htmlFor="password">Password</FormLabel>
         <Input
@@ -51,6 +53,7 @@ const Login = () => {
           type="password"
           value={password}
           onChange={handlePasswordChange}
+          isRequired
         />
         <Button type="submit" onClick={loginUser} colorScheme="teal" mt={4}>
           Log In

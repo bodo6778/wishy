@@ -75,7 +75,9 @@ const Wish: React.FC<WishProps> = ({ wish, wishlistTitle }) => {
         borderRadius="8px"
         backgroundColor="white"
       >
-        <Text px="4px">{wish.title}</Text>
+        <Text px="4px" color="black">
+          {wish.title}
+        </Text>
 
         <Flex py="4px">
           <Text color="blackAlpha.400" fontSize="16px" px="4px">

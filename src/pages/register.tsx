@@ -40,11 +40,17 @@ const Register = () => {
 
   return (
     <Stack w="100%" gap={4}>
-      <Input placeholder="Name" value={name} onChange={handleNameChange} />
+      <Input
+        placeholder="Name"
+        value={name}
+        onChange={handleNameChange}
+        isRequired
+      />
       <Input
         placeholder="Username"
         value={username}
         onChange={handleUsernameChange}
+        isRequired
       />
       <Input placeholder="Email" value={email} onChange={handleEmailChange} />
       <Input
@@ -52,12 +58,14 @@ const Register = () => {
         type="password"
         value={password}
         onChange={handlePasswordChange}
+        isRequired
       />
       <Input
         placeholder="Repeat Password"
         type="password"
         value={password2}
         onChange={handlePassword2Change}
+        isRequired
       />
       <Button onClick={registerUser} colorScheme="blue" width="fit-content">
         Sign In

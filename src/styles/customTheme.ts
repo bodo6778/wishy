@@ -16,7 +16,7 @@ const styles: Styles = {
 const customTheme = extendTheme({
   fonts: {
     ...theme.fonts,
-    body: "Lexend, sans-serif",
+    body: "Lexend, sans-serif, Grape Nuts",
     heading: "Lexend, serif",
   },
   styles,
@@ -37,6 +37,21 @@ const customTheme = extendTheme({
     //     borderRadius: 24,
     //   },
     // },
+    Input: {
+      baseStyle: {
+        borderColor: "red",
+      },
+      variants: {
+        outline: {
+          field: {
+            borderColor: "black.300",
+            _placeholder: {
+              color: "inherit",
+            },
+          },
+        },
+      },
+    },
   },
 });
 

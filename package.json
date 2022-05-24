@@ -18,6 +18,7 @@
     "@chakra-ui/react": "^1.6.5",
     "@emotion/react": "^11.1.5",
     "@emotion/styled": "^11.3.0",
+    "@fontsource/grape-nuts": "^4.5.1",
     "@fontsource/lexend": "^4.5.0",
     "axios": "^0.26.0",
     "framer-motion": "^4.1.17",
