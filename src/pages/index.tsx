@@ -5,7 +5,6 @@ import Wishlist from "components/wish/Wishlist";
 const Home = () => {
   return (
     <Box w="100%">
-      <p>Hello there</p>
       <Wishlist />
     </Box>
   );

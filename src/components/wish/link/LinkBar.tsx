@@ -1,4 +1,4 @@
-import { SmallCloseIcon } from "@chakra-ui/icons";
+import { DeleteIcon, SmallCloseIcon } from "@chakra-ui/icons";
 import { Flex, IconButton, Text } from "@chakra-ui/react";
 import React from "react";
 import { Link } from "types/wish";
@@ -68,7 +68,7 @@ const LinkBar: React.FC<LinkBarProps> = ({
       </Flex>
       <IconButton
         aria-label="Delete Link"
-        icon={<SmallCloseIcon color="red" />}
+        icon={<DeleteIcon color="red" />}
         bg="transparent"
         size="sm"
         onClick={deleteLink}

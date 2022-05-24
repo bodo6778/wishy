@@ -1,4 +1,4 @@
-import { Text } from "@chakra-ui/react";
+import { Flex, Text } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { WishlistType, WishType } from "types/wish";
 import AddWishButton from "./AddButton/AddWishButton";
@@ -15,7 +15,6 @@ interface OneWishlistProps {
 const OneWishlist: React.FC<OneWishlistProps> = ({ wishlist }) => {
   const [wishlists, setWishlist] = useRecoilState(wishlistsState);
 
-  const [showDeleteButton, setShowDeleteButton] = useState("none");
   const title = wishlist.title;
 
   const deleteWishlist = async () => {
@@ -44,24 +43,12 @@ const OneWishlist: React.FC<OneWishlistProps> = ({ wishlist }) => {
 
   return (
     <>
-      <Text
-        fontWeight="bold"
-        fontSize="24px"
-        onMouseEnter={(e) => {
-          setShowDeleteButton("block");
-        }}
-        onMouseLeave={(e) => {
-          setShowDeleteButton("none");
-        }}
-        position="relative"
-      >
-        {wishlist.title}
-
-        <DeleteButton
-          showDeleteButton={showDeleteButton}
-          onClick={deleteWishlist}
-        />
-      </Text>
+      <Flex justifyContent="space-between" alignItems="center">
+        <Text fontWeight="bold" fontSize="24px" position="relative">
+          {wishlist.title}
+        </Text>
+        <DeleteButton aria-label="Delete Wishlist" onClick={deleteWishlist} />
+      </Flex>
 
       {wishlist.wishes?.map((wish: WishType, key) => {
         return <Wish wish={wish} wishlistTitle={wishlist.title} key={key} />;

@@ -45,8 +45,9 @@ const Profile = () => {
       </Text>
       <Box h={10}></Box>
       <Text>
-        Currently you have {wishlists.length} wishlists with a total of{" "}
-        {getNumberOfWishes} wishes.
+        Currently you have {wishlists.length} wishlist
+        {wishlists.length !== 1 && "s"} with a total of {getNumberOfWishes} wish
+        {getNumberOfWishes !== 1 && "es"}.
       </Text>
     </Box>
   );

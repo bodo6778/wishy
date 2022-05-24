@@ -29,6 +29,17 @@ const Header = () => {
             My Profile
           </Button>
         )}
+        {!token && (
+          <Button
+            onClick={() => {
+              router.push("/register");
+            }}
+            mr={4}
+            colorScheme="blue"
+          >
+            Sign In
+          </Button>
+        )}
         <Button
           px={4}
           onClick={() => {

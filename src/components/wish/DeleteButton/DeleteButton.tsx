@@ -1,31 +1,23 @@
-import { CloseIcon } from "@chakra-ui/icons";
-import { Button, IconProps } from "@chakra-ui/react";
+import { CloseIcon, DeleteIcon } from "@chakra-ui/icons";
+import { Button, IconButton, IconButtonProps } from "@chakra-ui/react";
 import React from "react";
 
 interface DeleteButtonProps {
-  showDeleteButton: string;
   onClick: () => void;
 }
 
-const DeleteButton: React.FC<DeleteButtonProps & IconProps> = ({
-  showDeleteButton,
+const DeleteButton: React.FC<DeleteButtonProps & IconButtonProps> = ({
   onClick,
   ...props
 }) => {
   return (
-    <CloseIcon
-      aria-label="Delete Wishlist"
-      display={showDeleteButton}
-      p={1}
-      w={4}
-      h={4}
-      bg="red"
-      size="xs"
-      borderRadius="100%"
-      position="absolute"
-      top="0px"
-      left="-8px"
-      _hover={{ cursor: "pointer" }}
+    <IconButton
+      icon={<DeleteIcon color="red" />}
+      bg="transparent"
+      _hover={{
+        backgroundColor: "transparent",
+        boxShadow: "0px 2px 8px rgba(0, 0, 0, 0.08)",
+      }}
       onClick={onClick}
       {...props}
     />

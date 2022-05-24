@@ -34,6 +34,8 @@ const Wishlist: React.FC<WishlistProps> = () => {
     populateWishlist();
   }, []);
 
+  if (!token) return <></>;
+
   return (
     <Box mb="32px">
       <Stack spacing={4}>

@@ -52,7 +52,7 @@ const Login = () => {
           value={password}
           onChange={handlePasswordChange}
         />
-        <Button type="submit" onClick={loginUser}>
+        <Button type="submit" onClick={loginUser} colorScheme="teal" mt={4}>
           Log In
         </Button>
       </form>

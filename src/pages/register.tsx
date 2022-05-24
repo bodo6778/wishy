@@ -1,4 +1,4 @@
-import { Box, Button, Input } from "@chakra-ui/react";
+import { Box, Button, Input, Stack } from "@chakra-ui/react";
 import { useRouter } from "next/dist/client/router";
 import { useState } from "react";
 
@@ -18,28 +18,28 @@ const Register = () => {
   const handlePassword2Change = (e: any) => setPassword2(e.target.value);
 
   const registerUser = async () => {
-    const response = await fetch("http://localhost:3001/api/users/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name,
-        username,
-        email,
-        password,
-        password2,
-      }),
-    });
-
-    const data = await response.json();
-    if (data.status === "ok") {
+    try {
+      await fetch("http://localhost:3001/api/users/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name,
+          username,
+          email,
+          password,
+          password2,
+        }),
+      });
       router.push("/login");
+    } catch (error) {
+      console.log(error);
     }
   };
 
   return (
-    <Box w="100%">
+    <Stack w="100%" gap={4}>
       <Input placeholder="Name" value={name} onChange={handleNameChange} />
       <Input
         placeholder="Username"
@@ -59,8 +59,10 @@ const Register = () => {
         value={password2}
         onChange={handlePassword2Change}
       />
-      <Button onClick={registerUser}>Sign In</Button>
-    </Box>
+      <Button onClick={registerUser} colorScheme="blue" width="fit-content">
+        Sign In
+      </Button>
+    </Stack>
   );
 };
 

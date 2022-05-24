@@ -24,7 +24,6 @@ interface WishProps {
 
 const Wish: React.FC<WishProps> = ({ wish, wishlistTitle }) => {
   const setWishlist = useSetRecoilState(wishlistsState);
-  const [showDeleteButton, setShowDeleteButton] = useState("none");
   const [collapsed, setCollapsed] = useState(false);
 
   const deleteWishlist = async () => {
@@ -75,19 +74,7 @@ const Wish: React.FC<WishProps> = ({ wish, wishlistTitle }) => {
         py="4px"
         borderRadius="8px"
         backgroundColor="white"
-        onMouseEnter={(e) => {
-          setShowDeleteButton("block");
-        }}
-        onMouseLeave={(e) => {
-          setShowDeleteButton("none");
-        }}
-        position="relative"
       >
-        <DeleteButton
-          showDeleteButton={showDeleteButton}
-          onClick={deleteWishlist}
-          top="-8px"
-        />
         <Text px="4px">{wish.title}</Text>
 
         <Flex py="4px">
@@ -111,6 +98,12 @@ const Wish: React.FC<WishProps> = ({ wish, wishlistTitle }) => {
               />
             ))}
           </Flex>
+          <DeleteButton
+            onClick={deleteWishlist}
+            aria-label="Delete Wish"
+            size="xs"
+          />
+
           <ChevronLeftIcon
             w={6}
             h={6}
