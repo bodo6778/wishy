@@ -58,7 +58,7 @@ const AddWishlistButton: React.FC<AddWishlistButtonProps> = ({}) => {
       {showForm ? (
         <>
           <form onSubmit={addWishlist}>
-            <Flex justifyContent="space-between" alignItems="center">
+            <Flex justifyContent="space-between" alignItems="center" mt={8}>
               <Input
                 placeholder="Title"
                 id="title"
@@ -104,14 +104,6 @@ const AddWishlistButton: React.FC<AddWishlistButtonProps> = ({}) => {
         />
       )}
     </>
-    // <AddButton
-    //   customType="wishlist"
-    //   text="Add Wishlist"
-    //   icon={<AddIcon color="#9B9B9B" w={4} h={4} mr="4px" />}
-    //   onClick={() => {
-    //     addWishlist();
-    //   }}
-    // />
   );
 };
 

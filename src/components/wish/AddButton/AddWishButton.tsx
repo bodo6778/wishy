@@ -1,5 +1,12 @@
 import { AddIcon, CheckCircleIcon, SmallCloseIcon } from "@chakra-ui/icons";
-import { Flex, IconButton, Input, Stack } from "@chakra-ui/react";
+import {
+  Flex,
+  FormControl,
+  IconButton,
+  Input,
+  Select,
+  Stack,
+} from "@chakra-ui/react";
 import React, { useState } from "react";
 import { useSetRecoilState } from "recoil";
 import { wishlistsState } from "state/atoms";
@@ -19,11 +26,12 @@ const AddWishButton: React.FC<AddWishButtonProps> = ({ wishlistTitle }) => {
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
   const [need, setNeed] = useState("");
+  console.log(need);
 
   const handleTitleChange = (e: any) => setTitle(e.target.value);
   const handleDescriptionChange = (e: any) => setDescription(e.target.value);
   const handlePriceChange = (e: any) => setPrice(e.target.value);
-  const handleNeedChange = (e: any) => setNeed(e.target.value);
+  const handleNeedChange = (e: any) => setNeed(e.target.value.slice(0, 1));
 
   const addWish = async () => {
     const token = getStorageValue("token");
@@ -101,13 +109,18 @@ const AddWishButton: React.FC<AddWishButtonProps> = ({ wishlistTitle }) => {
                 value={price}
                 onChange={handlePriceChange}
               />
-              <Input
-                placeholder="Need"
-                type="number"
-                id="password"
-                value={need}
-                onChange={handleNeedChange}
-              />
+              <FormControl>
+                <Select
+                  id="need"
+                  placeholder="Need"
+                  onChange={handleNeedChange}
+                >
+                  <option>1 - Can live without it</option>
+                  <option>2 - Good to have</option>
+                  <option>3 - Should have it ASAP</option>
+                </Select>
+              </FormControl>
+
               <Flex justifyContent="space-between" alignItems="center">
                 <AddButton
                   customType="wish"

@@ -1,5 +1,13 @@
 import { CheckCircleIcon, SmallCloseIcon } from "@chakra-ui/icons";
-import { Button, Flex, IconButton, Input } from "@chakra-ui/react";
+import {
+  Button,
+  Flex,
+  FormControl,
+  HStack,
+  IconButton,
+  Input,
+  Select,
+} from "@chakra-ui/react";
 import React, { Dispatch, SetStateAction, useState } from "react";
 import { Link } from "types/wish";
 import { getStorageValue } from "../../../../utils/functions";
@@ -22,7 +30,7 @@ const AddLink: React.FC<AddLinkProps> = ({
   const [price, setPrice] = useState("");
 
   const handleLinkChange = (e: any) => setLink(e.target.value);
-  const handlePricyChange = (e: any) => setPricy(e.target.value);
+  const handlePricyChange = (e: any) => setPricy(e.target.value.slice(0, 1));
   const handlePriceChange = (e: any) => setPrice(e.target.value);
 
   const addLink = async () => {
@@ -61,7 +69,11 @@ const AddLink: React.FC<AddLinkProps> = ({
       {showForm ? (
         <>
           <form onSubmit={addLink}>
-            <Flex justifyContent="space-between" alignItems="center">
+            <HStack
+              justifyContent="space-between"
+              alignItems="center"
+              spacing={1}
+            >
               <Input
                 placeholder="Link"
                 id="link"
@@ -75,13 +87,18 @@ const AddLink: React.FC<AddLinkProps> = ({
                 type="number"
                 onChange={handlePriceChange}
               />
-              <Input
-                placeholder="How Pricy?"
-                type="number"
-                id="price"
-                value={pricy}
-                onChange={handlePricyChange}
-              />
+
+              <FormControl>
+                <Select
+                  id="pricy"
+                  placeholder="How pricy?"
+                  onChange={handlePricyChange}
+                >
+                  <option>1 - Can buy now</option>
+                  <option>2 - Affordable</option>
+                  <option>3 - Over budget</option>
+                </Select>
+              </FormControl>
 
               <AddButton
                 customType="wish"
@@ -100,7 +117,7 @@ const AddLink: React.FC<AddLinkProps> = ({
                 size="xs"
                 onClick={() => setShowForm(!showForm)}
               />
-            </Flex>
+            </HStack>
           </form>
         </>
       ) : (

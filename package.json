@@ -1,8 +1,9 @@
 {
-  "name": "nextchakra-starter",
+  "name": "wishy",
   "version": "0.1.0",
   "private": true,
-  "author": "sozonome",
+  "author": "Bogdan Opritescu",
+  "homepage": "https://wishy.vercel.app",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

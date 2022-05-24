@@ -10,7 +10,10 @@ import { wishlistsState } from "state/atoms";
 interface WishlistProps {}
 
 const Wishlist: React.FC<WishlistProps> = () => {
+  const token = getStorageValue("token");
   const wishlists = useRecoilValue(wishlistsState);
+
+  if (!token) return null;
 
   return (
     <Box mb="32px">

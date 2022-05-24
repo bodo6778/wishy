@@ -2,10 +2,14 @@ import { Box, Flex, Heading, Text } from "@chakra-ui/react";
 import "@fontsource/grape-nuts";
 import React from "react";
 import Hero from "styles/hero";
+import { getStorageValue } from "../../../utils/functions";
 
 interface HomepageProps {}
 
 const Homepage: React.FC<HomepageProps> = () => {
+  const token = getStorageValue("token");
+
+  if (token) return null;
   return (
     <Flex justifyContent="space-between" alignItems="center">
       <Hero />

@@ -38,9 +38,18 @@ const customTheme = extendTheme({
     //   },
     // },
     Input: {
-      baseStyle: {
-        borderColor: "red",
+      variants: {
+        outline: {
+          field: {
+            borderColor: "black.300",
+            _placeholder: {
+              color: "inherit",
+            },
+          },
+        },
       },
+    },
+    Select: {
       variants: {
         outline: {
           field: {
