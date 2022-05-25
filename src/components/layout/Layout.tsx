@@ -41,6 +41,11 @@ const Layout = ({ children }: LayoutProps) => {
     if (!token) return;
 
     try {
+      await fetch(
+        "http://localhost:3001/getUsers",
+        
+      );
+
       const profileRequest = await fetch(
         "http://localhost:3001/api/users/getProfile",
         {
@@ -53,7 +58,7 @@ const Layout = ({ children }: LayoutProps) => {
       const profileData = await profileRequest.json();
 
       const wishlistsRequest = await fetch(
-        "http://localhost:3001/api/wishes/getWishlists",
+        "https://wishy-backend-qfda9q4cs-bodo6778.vercel.app/api/wishes/getWishlists",
         {
           headers: {
             "x-access-token": token,
