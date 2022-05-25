@@ -41,12 +41,15 @@ const Layout = ({ children }: LayoutProps) => {
     if (!token) return;
 
     try {
-      await fetch("http://localhost:3001/getUsers", {
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "Content-Type": "application/json",
-        },
-      });
+      await fetch(
+        "https://wishy-backend-qfda9q4cs-bodo6778.vercel.app/getUsers",
+        {
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       const profileRequest = await fetch(
         "http://localhost:3001/api/users/getProfile",
