@@ -8,7 +8,7 @@ module.exports = {
           { key: "Access-Control-Allow-Credentials", value: "true" },
           {
             key: "Access-Control-Allow-Origin",
-            value: "https://wishy-backend-qfda9q4cs-bodo6778.vercel.app",
+            value: "https://wishy-backend.vercel.app",
           },
           {
             key: "Access-Control-Allow-Methods",
