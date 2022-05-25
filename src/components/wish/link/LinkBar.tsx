@@ -22,7 +22,7 @@ const LinkBar: React.FC<LinkBarProps> = ({
     if (!token) return;
 
     try {
-      await fetch("http://localhost:3001/api/wishes/deleteLink", {
+      await fetch("https://wishy-backend.vercel.app/api/wishes/deleteLink", {
         method: "DELETE",
         headers: {
           "x-access-token": token,

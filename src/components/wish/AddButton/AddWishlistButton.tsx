@@ -26,17 +26,20 @@ const AddWishlistButton: React.FC<AddWishlistButtonProps> = ({}) => {
     const token = getStorageValue("token");
     if (!token) return;
 
-    const response = await fetch("http://localhost:3001/api/wishlist/add", {
-      method: "POST",
-      headers: {
-        "x-access-token": token,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        title,
-        description,
-      }),
-    });
+    const response = await fetch(
+      "https://wishy-backend.vercel.app/api/wishlist/add",
+      {
+        method: "POST",
+        headers: {
+          "x-access-token": token,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          title,
+          description,
+        }),
+      }
+    );
 
     const data = await response.json();
 

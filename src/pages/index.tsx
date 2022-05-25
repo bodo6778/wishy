@@ -5,12 +5,8 @@ import Wishlist from "components/wish/Wishlist";
 import { getStorageValue } from "../../utils/functions";
 
 const Home = () => {
-  return (
-    <>
-      <Wishlist />
-      <Homepage />
-    </>
-  );
+  const token = getStorageValue("token");
+  return <>{token ? <Wishlist /> : <Homepage />}</>;
 };
 
 export default Home;

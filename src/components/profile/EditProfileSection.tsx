@@ -35,7 +35,7 @@ const EditProfileSection: React.FC<EditProfileSectionProps> = ({ profile }) => {
     if (!token) return;
 
     try {
-      await fetch("http://localhost:3001/api/users/change", {
+      await fetch("https://wishy-backend.vercel.app/api/users/change", {
         method: "POST",
         headers: {
           "x-access-token": token,

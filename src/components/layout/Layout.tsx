@@ -18,11 +18,14 @@ const Layout = ({ children }: LayoutProps) => {
 
   const populateProfile = async () => {
     if (!token) return;
-    const req = await fetch("http://localhost:3001/api/users/getProfile", {
-      headers: {
-        "x-access-token": token,
-      },
-    });
+    const req = await fetch(
+      "https://wishy-backend.vercel.app/api/users/getProfile",
+      {
+        headers: {
+          "x-access-token": token,
+        },
+      }
+    );
 
     const data = await req.json();
     setProfile(data);
@@ -49,7 +52,7 @@ const Layout = ({ children }: LayoutProps) => {
       });
 
       const profileRequest = await fetch(
-        "http://localhost:3001/api/users/getProfile",
+        "https://wishy-backend.vercel.app/api/users/getProfile",
         {
           headers: {
             "x-access-token": token,

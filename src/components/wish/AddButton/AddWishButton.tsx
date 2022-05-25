@@ -38,7 +38,7 @@ const AddWishButton: React.FC<AddWishButtonProps> = ({ wishlistTitle }) => {
     if (!token) return;
 
     try {
-      await fetch("http://localhost:3001/api/wishes/add", {
+      await fetch("https://wishy-backend.vercel.app/api/wishes/add", {
         method: "POST",
         headers: {
           "x-access-token": token,
