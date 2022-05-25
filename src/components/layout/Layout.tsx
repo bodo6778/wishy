@@ -41,15 +41,12 @@ const Layout = ({ children }: LayoutProps) => {
     if (!token) return;
 
     try {
-      await fetch(
-        "https://wishy-backend-qfda9q4cs-bodo6778.vercel.app/getUsers",
-        {
-          headers: {
-            "Access-Control-Allow-Origin": "*",
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      await fetch("https://wishy-backend.vercel.app/getUsers", {
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Content-Type": "application/json",
+        },
+      });
 
       const profileRequest = await fetch(
         "http://localhost:3001/api/users/getProfile",
@@ -63,7 +60,7 @@ const Layout = ({ children }: LayoutProps) => {
       const profileData = await profileRequest.json();
 
       const wishlistsRequest = await fetch(
-        "https://wishy-backend-qfda9q4cs-bodo6778.vercel.app/api/wishes/getWishlists",
+        "https://wishy-backend.vercel.app/api/wishes/getWishlists",
         {
           headers: {
             "Access-Control-Allow-Origin": "*",
