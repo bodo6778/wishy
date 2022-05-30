@@ -13,12 +13,12 @@ interface WishlistProps {
 }
 
 const Wishlist: React.FC<WishlistProps> = ({ wishlists, editable }) => {
-  const wishlistsValue = wishlists || useRecoilValue(wishlistsState);
-
+  const stateWislishts = useRecoilValue(wishlistsState);
+  const shownWishlists = wishlists || stateWislishts;
   return (
     <Box mb="32px">
       <Stack spacing={4}>
-        {wishlistsValue?.map((wishlist: WishlistType, key) => (
+        {shownWishlists?.map((wishlist: WishlistType, key) => (
           <OneWishlist wishlist={wishlist} key={key} editable={editable} />
         ))}
       </Stack>
