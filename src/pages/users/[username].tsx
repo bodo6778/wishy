@@ -16,7 +16,7 @@ const UserProfileDynamicPage: NextPage<UserProfileDynamicPageProps> = ({
 
   return (
     <>
-      {token && <OwnProfile user={user}></OwnProfile>}
+      <OwnProfile user={user} />
       <SharedProfilePage user={user} />
     </>
   );

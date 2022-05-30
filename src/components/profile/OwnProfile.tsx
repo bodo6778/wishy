@@ -11,6 +11,7 @@ interface OwnProps {
 
 const OwnProfile: NextPage<OwnProps> = ({ user }) => {
   const { name, username, wishlists } = user;
+  const ownUsername = useRecoilValue(userState).username;
   const token = getStorageValue("token");
 
   const getNumberOfWishes = wishlists.reduce(
@@ -18,7 +19,15 @@ const OwnProfile: NextPage<OwnProps> = ({ user }) => {
     0
   );
 
-  if (!token) return <></>;
+  if (!token || ownUsername !== username)
+    return (
+      <>
+        <Text fontSize="xl" mb={6}>
+          This is <b>{user.name}</b>&apos;s profile. Take a look at it&apos;s
+          wishes:
+        </Text>
+      </>
+    );
 
   return (
     <Box>
