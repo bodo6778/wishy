@@ -11,7 +11,7 @@ const SharedProfilePage: React.FC<SharedProfilePageProps> = ({ user }) => {
   return (
     <Box>
       <Text fontSize="xl" mb={6}>
-        This is <b>{user.name}</b>'s profile. Take a look at it's wishes:
+        {`This is <b>${user.name}</b>'s profile. Take a look at it's wishes:`}
       </Text>
       <Wishlist wishlists={user.wishlists} />
     </Box>
