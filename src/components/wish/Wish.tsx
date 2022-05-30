@@ -20,9 +20,10 @@ import LinkList from "./link/LinkList";
 interface WishProps {
   wish: WishType;
   wishlistTitle: string;
+  editable?: boolean;
 }
 
-const Wish: React.FC<WishProps> = ({ wish, wishlistTitle }) => {
+const Wish: React.FC<WishProps> = ({ wish, wishlistTitle, editable }) => {
   const setWishlist = useSetRecoilState(wishlistsState);
   const [collapsed, setCollapsed] = useState(false);
 
@@ -100,23 +101,27 @@ const Wish: React.FC<WishProps> = ({ wish, wishlistTitle }) => {
               />
             ))}
           </Flex>
-          <DeleteButton
-            onClick={deleteWishlist}
-            aria-label="Delete Wish"
-            size="xs"
-          />
+          {editable && (
+            <DeleteButton
+              onClick={deleteWishlist}
+              aria-label="Delete Wish"
+              size="xs"
+            />
+          )}
 
-          <ChevronLeftIcon
-            w={6}
-            h={6}
-            onClick={() => setCollapsed(!collapsed)}
-            _hover={{
-              cursor: "pointer",
-              boxShadow: "0px 2px 8px rgba(0, 0, 0, 0.08)",
-            }}
-            transition="0.2s ease"
-            transform={collapsed ? "rotate(-90deg)" : "rotate(0deg)"}
-          />
+          {(!!wish.links?.length || editable) && (
+            <ChevronLeftIcon
+              w={6}
+              h={6}
+              onClick={() => setCollapsed(!collapsed)}
+              _hover={{
+                cursor: "pointer",
+                boxShadow: "0px 2px 8px rgba(0, 0, 0, 0.08)",
+              }}
+              transition="0.2s ease"
+              transform={collapsed ? "rotate(-90deg)" : "rotate(0deg)"}
+            />
+          )}
         </Flex>
       </Flex>
 
@@ -126,6 +131,7 @@ const Wish: React.FC<WishProps> = ({ wish, wishlistTitle }) => {
         collapsed={collapsed}
         wish={wish}
         wishlistTitle={wishlistTitle}
+        editable={editable}
       />
     </Box>
   );

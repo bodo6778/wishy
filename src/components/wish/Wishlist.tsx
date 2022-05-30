@@ -7,23 +7,23 @@ import OneWishlist from "components/wish/OneWishlist";
 import AddWishlistButton from "./AddButton/AddWishlistButton";
 import { wishlistsState } from "state/atoms";
 
-interface WishlistProps {}
+interface WishlistProps {
+  wishlists?: WishlistType[];
+  editable?: boolean;
+}
 
-const Wishlist: React.FC<WishlistProps> = () => {
-  const token = getStorageValue("token");
-  const wishlists = useRecoilValue(wishlistsState);
-
-  if (!token) return null;
+const Wishlist: React.FC<WishlistProps> = ({ wishlists, editable }) => {
+  const wishlistsValue = wishlists || useRecoilValue(wishlistsState);
 
   return (
     <Box mb="32px">
       <Stack spacing={4}>
-        {wishlists?.map((wishlist: WishlistType, key) => (
-          <OneWishlist wishlist={wishlist} key={key} />
+        {wishlistsValue?.map((wishlist: WishlistType, key) => (
+          <OneWishlist wishlist={wishlist} key={key} editable={editable} />
         ))}
       </Stack>
 
-      <AddWishlistButton />
+      {editable && <AddWishlistButton />}
     </Box>
   );
 };

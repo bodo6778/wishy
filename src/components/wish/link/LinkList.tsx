@@ -9,12 +9,14 @@ interface LinkListProps {
   collapsed: boolean;
   wish: WishType;
   wishlistTitle: string;
+  editable?: boolean;
 }
 
 const LinkList: React.FC<LinkListProps> = ({
   collapsed = false,
   wish,
   wishlistTitle,
+  editable,
 }) => {
   const [linksState, setLinksState] = useState(wish.links || []);
 
@@ -37,15 +39,18 @@ const LinkList: React.FC<LinkListProps> = ({
                 wishTitle={wish.title}
                 wishlistTitle={wishlistTitle}
                 setLinksState={setLinksState}
+                editable={editable}
               />
             ))}
-          <Flex justifyContent="flex-end">
-            <AddLink
-              wishTitle={wish.title}
-              wishlistTitle={wishlistTitle}
-              onClick={setLinksState}
-            />
-          </Flex>
+          {editable && (
+            <Flex justifyContent="flex-end">
+              <AddLink
+                wishTitle={wish.title}
+                wishlistTitle={wishlistTitle}
+                onClick={setLinksState}
+              />
+            </Flex>
+          )}
         </SimpleGrid>
       </Box>
     </Collapse>

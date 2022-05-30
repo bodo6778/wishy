@@ -10,9 +10,10 @@ import { wishlistsState } from "state/atoms";
 
 interface OneWishlistProps {
   wishlist: WishlistType;
+  editable?: boolean;
 }
 
-const OneWishlist: React.FC<OneWishlistProps> = ({ wishlist }) => {
+const OneWishlist: React.FC<OneWishlistProps> = ({ wishlist, editable }) => {
   const [wishlists, setWishlist] = useRecoilState(wishlistsState);
 
   const title = wishlist.title;
@@ -50,13 +51,22 @@ const OneWishlist: React.FC<OneWishlistProps> = ({ wishlist }) => {
         <Text fontWeight="bold" fontSize="24px" position="relative">
           {wishlist.title}
         </Text>
-        <DeleteButton aria-label="Delete Wishlist" onClick={deleteWishlist} />
+        {editable && (
+          <DeleteButton aria-label="Delete Wishlist" onClick={deleteWishlist} />
+        )}
       </Flex>
 
       {wishlist.wishes?.map((wish: WishType, key) => {
-        return <Wish wish={wish} wishlistTitle={wishlist.title} key={key} />;
+        return (
+          <Wish
+            wish={wish}
+            wishlistTitle={wishlist.title}
+            editable={editable}
+            key={key}
+          />
+        );
       })}
-      <AddWishButton wishlistTitle={wishlist.title} />
+      {editable && <AddWishButton wishlistTitle={wishlist.title} />}
     </>
   );
 };

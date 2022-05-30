@@ -6,7 +6,7 @@ import { getStorageValue } from "../../utils/functions";
 
 const Home = () => {
   const token = getStorageValue("token");
-  return <>{token ? <Wishlist /> : <Homepage />}</>;
+  return <>{token ? <Wishlist editable /> : <Homepage />}</>;
 };
 
 export default Home;

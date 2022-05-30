@@ -9,6 +9,7 @@ interface LinkBarProps {
   setLinksState: React.Dispatch<React.SetStateAction<Link[]>>;
   wishTitle: string;
   wishlistTitle: string;
+  editable?: boolean;
 }
 
 const LinkBar: React.FC<LinkBarProps> = ({
@@ -16,6 +17,7 @@ const LinkBar: React.FC<LinkBarProps> = ({
   setLinksState,
   wishTitle,
   wishlistTitle,
+  editable,
 }) => {
   const deleteLink = async () => {
     const token = getStorageValue("token");
@@ -66,13 +68,15 @@ const LinkBar: React.FC<LinkBarProps> = ({
           </Flex>
         </Flex>
       </Flex>
-      <IconButton
-        aria-label="Delete Link"
-        icon={<DeleteIcon color="red" />}
-        bg="transparent"
-        size="sm"
-        onClick={deleteLink}
-      />
+      {editable && (
+        <IconButton
+          aria-label="Delete Link"
+          icon={<DeleteIcon color="red" />}
+          bg="transparent"
+          size="sm"
+          onClick={deleteLink}
+        />
+      )}
     </Flex>
   );
 };
