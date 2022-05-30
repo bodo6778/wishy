@@ -1,11 +1,16 @@
 import { Box, Text } from "@chakra-ui/react";
+import { NextPage } from "next";
 import { useRecoilValue } from "recoil";
 import { userState, wishlistsState } from "state/atoms";
-import { getStorageValue } from "../../utils/functions";
+import { UserProfile } from "types/wish";
+import { getStorageValue } from "../../../utils/functions";
 
-const Profile = () => {
-  const wishlists = useRecoilValue(wishlistsState);
-  const profile = useRecoilValue(userState);
+interface OwnProps {
+  user: UserProfile;
+}
+
+const OwnProfile: NextPage<OwnProps> = ({ user }) => {
+  const { name, username, wishlists } = user;
   const token = getStorageValue("token");
 
   const getNumberOfWishes = wishlists.reduce(
@@ -18,7 +23,7 @@ const Profile = () => {
   return (
     <Box>
       <Text fontSize="3xl">
-        Hello, <b>{profile.name}</b>! This is your profile.
+        Hello, <b>{name}</b>! This is your profile.
       </Text>
       <Text fontSize="md">Here you can see your stats.</Text>
       <Box h={10}></Box>
@@ -27,13 +32,10 @@ const Profile = () => {
         {wishlists.length !== 1 && "s"} with a total of {getNumberOfWishes} wish
         {getNumberOfWishes !== 1 && "es"}.
       </Text>
-      <Text>
-        Your email is <b>{profile.email}</b> and your username is{" "}
-        <b>@{profile.username}</b>
-      </Text>
+      <Text mb={4}>Share your profile to show your friends what you wish!</Text>
     </Box>
   );
 };
 
 //ducesa
-export default Profile;
+export default OwnProfile;

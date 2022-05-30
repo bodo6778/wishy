@@ -26,7 +26,6 @@ const AddWishButton: React.FC<AddWishButtonProps> = ({ wishlistTitle }) => {
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
   const [need, setNeed] = useState("");
-  console.log(need);
 
   const handleTitleChange = (e: any) => setTitle(e.target.value);
   const handleDescriptionChange = (e: any) => setDescription(e.target.value);

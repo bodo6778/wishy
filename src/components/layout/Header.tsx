@@ -2,12 +2,15 @@ import { Box, Button, Flex, Heading } from "@chakra-ui/react";
 
 import AccessibleLink from "components/AccessibleLink";
 import { useRouter } from "next/dist/client/router";
+import { useRecoilValue } from "recoil";
+import { userState } from "state/atoms";
 import { deleteStorageValue, getStorageValue } from "../../../utils/functions";
 import ThemeToggle from "./ThemeToggle";
 
 const Header = () => {
   const router = useRouter();
   const token = getStorageValue("token");
+  const username = useRecoilValue(userState).username;
 
   return (
     <Flex as="header" width="full" align="center">
@@ -21,7 +24,7 @@ const Header = () => {
         {token && (
           <Button
             onClick={() => {
-              router.push("/profile");
+              router.push(`/users/${username}`);
             }}
             mr={4}
             colorScheme="teal"
