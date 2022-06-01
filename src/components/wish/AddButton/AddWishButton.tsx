@@ -6,6 +6,7 @@ import {
   Input,
   Select,
   Stack,
+  useToast,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { useSetRecoilState } from "recoil";
@@ -21,6 +22,7 @@ interface AddWishButtonProps {
 const AddWishButton: React.FC<AddWishButtonProps> = ({ wishlistTitle }) => {
   const setWishlist = useSetRecoilState(wishlistsState);
   const [showForm, setShowForm] = useState(false);
+  const toast = useToast();
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -37,20 +39,29 @@ const AddWishButton: React.FC<AddWishButtonProps> = ({ wishlistTitle }) => {
     if (!token) return;
 
     try {
-      await fetch("https://wishy-backend.vercel.app/api/wishes/add", {
-        method: "POST",
-        headers: {
-          "x-access-token": token,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          wishlistTitle,
-          title,
-          description,
-          price,
-          need,
-        }),
-      });
+      const response = await fetch(
+        "https://wishy-backend.vercel.app/api/wishes/add",
+        {
+          // const response = await fetch("http://localhost:3001/api/wishes/add", {
+          method: "POST",
+          headers: {
+            "x-access-token": token,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            wishlistTitle,
+            title,
+            description,
+            price,
+            need,
+          }),
+        }
+      );
+
+      if (response.status === 400) {
+        const responseJson = await response.json();
+        throw responseJson.error;
+      }
 
       const newWish: WishType = {
         title: title,
@@ -79,7 +90,13 @@ const AddWishButton: React.FC<AddWishButtonProps> = ({ wishlistTitle }) => {
 
       // const data = await response.json();
     } catch (error) {
-      console.log(error);
+      if (error === "Wish already exists!") {
+        toast({
+          title: error,
+          status: "error",
+          isClosable: true,
+        });
+      }
     }
   };
 

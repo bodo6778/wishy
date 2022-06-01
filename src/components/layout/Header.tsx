@@ -2,6 +2,7 @@ import { Box, Button, Flex, Heading } from "@chakra-ui/react";
 
 import AccessibleLink from "components/AccessibleLink";
 import { useRouter } from "next/dist/client/router";
+import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import { userState } from "state/atoms";
 import { deleteStorageValue, getStorageValue } from "../../../utils/functions";
@@ -9,8 +10,13 @@ import ThemeToggle from "./ThemeToggle";
 
 const Header = () => {
   const router = useRouter();
-  const token = getStorageValue("token");
   const username = useRecoilValue(userState).username;
+
+  const [logged, setLogged] = useState(false);
+  useEffect(() => {
+    const token = getStorageValue("token");
+    if (token !== undefined) setLogged(true);
+  }, []);
 
   return (
     <Flex as="header" width="full" align="center">
@@ -21,7 +27,7 @@ const Header = () => {
       </AccessibleLink>
 
       <Box marginLeft="auto">
-        {token && (
+        {logged && (
           <Button
             onClick={() => {
               router.push(`/users/${username}`);
@@ -32,7 +38,7 @@ const Header = () => {
             My Profile
           </Button>
         )}
-        {!token && (
+        {!logged && (
           <Button
             onClick={() => {
               router.push("/register");
@@ -46,7 +52,7 @@ const Header = () => {
         <Button
           px={4}
           onClick={() => {
-            if (token) {
+            if (logged) {
               router.asPath === "/" ? router.reload() : router.push("/");
               deleteStorageValue("token");
             } else {
@@ -56,7 +62,7 @@ const Header = () => {
           mr={4}
           colorScheme="teal"
         >
-          {token ? "Log Out" : "Log In"}
+          {logged ? "Log Out" : "Log In"}
         </Button>
         <ThemeToggle />
       </Box>

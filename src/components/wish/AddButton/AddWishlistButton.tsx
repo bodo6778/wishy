@@ -4,7 +4,7 @@ import {
   CloseIcon,
   SmallCloseIcon,
 } from "@chakra-ui/icons";
-import { Input, Box, Flex, IconButton } from "@chakra-ui/react";
+import { Input, Box, Flex, IconButton, useToast } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { useSetRecoilState } from "recoil";
 import { wishlistsState } from "state/atoms";
@@ -19,6 +19,7 @@ const AddWishlistButton: React.FC<AddWishlistButtonProps> = ({}) => {
   const [showForm, setShowForm] = useState(false);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const toast = useToast();
 
   const handleTitleChange = (e: any) => setTitle(e.target.value);
   const handleDescriptionChange = (e: any) => setDescription(e.target.value);
@@ -27,6 +28,7 @@ const AddWishlistButton: React.FC<AddWishlistButtonProps> = ({}) => {
     if (!token) return;
 
     const response = await fetch(
+      // "http://localhost:3001/api/wishlist/add",
       "https://wishy-backend.vercel.app/api/wishlist/add",
       {
         method: "POST",
@@ -41,18 +43,19 @@ const AddWishlistButton: React.FC<AddWishlistButtonProps> = ({}) => {
       }
     );
 
-    const data = await response.json();
-
-    if (data.status === "ok") {
+    if (response.status === 200) {
       const newWishlist: WishlistType = {
         title: title,
         description: description,
         wishes: [],
       };
       setWishlist((prev: WishlistType[]) => prev.concat(newWishlist));
-    }
-    if (data.status !== "ok") {
-      console.log(data);
+    } else {
+      toast({
+        title: "Wishlist already exists!",
+        status: "error",
+        isClosable: true,
+      });
     }
   };
 
