@@ -6,16 +6,14 @@ import { useEffect, useState } from "react";
 import { getStorageValue } from "../../utils/functions";
 
 const Home = () => {
-  const [logged, setLogged] = useState(false);
+  const [token, setToken] = useState<string | undefined>(undefined);
   useEffect(() => {
-    const token = getStorageValue("token");
-    if (token !== undefined) setLogged(true);
+    setToken(getStorageValue("token"));
   }, []);
-
   return (
     <>
-      <>{logged === true && <Wishlist editable />}</>
-      <>{logged === false && <Homepage />}</>
+      <>{token && <Wishlist editable />}</>
+      <>{!token && <Homepage />}</>
     </>
   );
 };

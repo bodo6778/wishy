@@ -11,12 +11,10 @@ import ThemeToggle from "./ThemeToggle";
 const Header = () => {
   const router = useRouter();
   const username = useRecoilValue(userState).username;
-
-  const [logged, setLogged] = useState(false);
+  const [token, setToken] = useState<string | undefined>(undefined);
   useEffect(() => {
-    const token = getStorageValue("token");
-    if (token !== undefined) setLogged(true);
-  }, []);
+    setToken(getStorageValue("token"));
+  }, [username]);
 
   return (
     <Flex as="header" width="full" align="center">
@@ -27,7 +25,7 @@ const Header = () => {
       </AccessibleLink>
 
       <Box marginLeft="auto">
-        {logged && (
+        {token && (
           <Button
             onClick={() => {
               router.push(`/users/${username}`);
@@ -38,7 +36,7 @@ const Header = () => {
             My Profile
           </Button>
         )}
-        {!logged && (
+        {!token && (
           <Button
             onClick={() => {
               router.push("/register");
@@ -52,7 +50,7 @@ const Header = () => {
         <Button
           px={4}
           onClick={() => {
-            if (logged) {
+            if (token) {
               router.asPath === "/" ? router.reload() : router.push("/");
               deleteStorageValue("token");
             } else {
@@ -62,7 +60,7 @@ const Header = () => {
           mr={4}
           colorScheme="teal"
         >
-          {logged ? "Log Out" : "Log In"}
+          {token ? "Log Out" : "Log In"}
         </Button>
         <ThemeToggle />
       </Box>
