@@ -4,6 +4,7 @@ import {
   FormErrorMessage,
   FormLabel,
   Input,
+  useToast,
 } from "@chakra-ui/react";
 import { useRouter } from "next/dist/client/router";
 import { useState } from "react";
@@ -23,6 +24,7 @@ const Register = () => {
   const [password2Error, setPassword2Error] = useState<string>();
 
   const router = useRouter();
+  const toast = useToast();
 
   const handleNameChange = (e: any) => {
     setNameError(undefined);
@@ -77,7 +79,7 @@ const Register = () => {
       setPasswordError("The password must have at least 6 characters");
       return;
     }
-    if (!username.match(/^[0-9a-z]+$/)) {
+    if (!username.match(/^[0-9a-zA-Z]+$/)) {
       setUsernameError("Username should contain only letters and spaces");
       return;
     }
@@ -87,7 +89,8 @@ const Register = () => {
     }
 
     try {
-      await fetch("https://wishy-backend.vercel.app/api/users/register", {
+      // await fetch("https://wishy-backend.vercel.app/api/users/register", {
+      const res = await fetch("http://localhost:3001/api/users/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -100,9 +103,22 @@ const Register = () => {
           password2,
         }),
       });
+      if (res.status === 400) {
+        const body = await res.json();
+        throw body.error;
+      }
       router.push("/login");
     } catch (error) {
-      console.log(error);
+      if (
+        error === "Email already exists!" ||
+        error === "Username already exists!"
+      ) {
+        toast({
+          title: error,
+          status: "error",
+          isClosable: true,
+        });
+      }
     }
   };
 
