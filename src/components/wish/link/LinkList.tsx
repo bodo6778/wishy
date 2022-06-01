@@ -48,6 +48,7 @@ const LinkList: React.FC<LinkListProps> = ({
                 wishTitle={wish.title}
                 wishlistTitle={wishlistTitle}
                 onClick={setLinksState}
+                linksState={linksState}
               />
             </Flex>
           )}

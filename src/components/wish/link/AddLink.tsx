@@ -7,6 +7,7 @@ import {
   IconButton,
   Input,
   Select,
+  useToast,
 } from "@chakra-ui/react";
 import React, { Dispatch, SetStateAction, useState } from "react";
 import { Link } from "types/wish";
@@ -17,23 +18,37 @@ interface AddLinkProps {
   wishTitle: string;
   wishlistTitle: string;
   onClick: Dispatch<SetStateAction<Link[]>>;
+  linksState?: Link[];
 }
 
 const AddLink: React.FC<AddLinkProps> = ({
   wishTitle,
   wishlistTitle,
   onClick,
+  linksState,
 }) => {
   const [showForm, setShowForm] = useState(false);
   const [link, setLink] = useState("");
   const [pricy, setPricy] = useState("");
   const [price, setPrice] = useState("");
+  const toast = useToast();
 
   const handleLinkChange = (e: any) => setLink(e.target.value);
   const handlePricyChange = (e: any) => setPricy(e.target.value.slice(0, 1));
   const handlePriceChange = (e: any) => setPrice(e.target.value);
 
   const addLink = async () => {
+    const linkAlreadyExisting = linksState?.filter((l) => l.link === link);
+
+    if (linkAlreadyExisting?.length) {
+      toast({
+        title: "Link already exists!",
+        status: "error",
+        isClosable: true,
+      });
+      return;
+    }
+
     const token = getStorageValue("token");
     if (!token) return;
 
