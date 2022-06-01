@@ -40,7 +40,7 @@ const Header = () => {
             mr={4}
             colorScheme="blue"
           >
-            Sign In
+            Sign Up
           </Button>
         )}
         <Button

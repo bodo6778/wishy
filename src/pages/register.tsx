@@ -47,27 +47,25 @@ const Register = () => {
     setPassword2(e.target.value);
   };
 
-  console.log(nameError);
-
   const registerUser = async () => {
     if (name.trim() === "") {
       setNameError("Name is empty");
       return;
     }
     if (username.trim() === "") {
-      setNameError("Username is empty");
+      setUsernameError("Username is empty");
       return;
     }
     if (email.trim() === "") {
-      setNameError("Email is empty");
+      setEmailError("Email is empty");
       return;
     }
     if (password.trim() === "") {
-      setNameError("Password is empty");
+      setPasswordError("Password is empty");
       return;
     }
     if (password2.trim() === "") {
-      setNameError("Password2 is empty");
+      setPassword2Error("Password2 is empty");
       return;
     }
     if (password !== password2) {
@@ -77,6 +75,10 @@ const Register = () => {
     }
     if (password.length < 6) {
       setPasswordError("The password must have at least 6 characters");
+      return;
+    }
+    if (!username.match(/^[0-9a-z]+$/)) {
+      setUsernameError("Username should contain only letters and spaces");
       return;
     }
     if (validateEmail(email) === null) {
@@ -93,7 +95,7 @@ const Register = () => {
         body: JSON.stringify({
           name,
           username,
-          email,
+          email: email.toLowerCase(),
           password,
           password2,
         }),
@@ -167,7 +169,7 @@ const Register = () => {
         width="fit-content"
         mt={4}
       >
-        Sign In
+        Sign Up
       </Button>
     </>
   );
