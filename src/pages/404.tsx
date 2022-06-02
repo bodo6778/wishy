@@ -27,9 +27,7 @@ const Page404 = () => {
         <Box textAlign="center" marginTop={4}>
           <Text>{"It's Okay!"}</Text>
           <Link href="/" passHref>
-            <Button
-              backgroundColor={colorMode === "light" ? "gray.300" : "teal.500"}
-            >
+            <Button mt={4} colorScheme="blue">
               {"Let's Head Back"}
             </Button>
           </Link>
