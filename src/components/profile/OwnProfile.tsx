@@ -59,7 +59,7 @@ const OwnProfile: NextPage<OwnProps> = ({ user }) => {
           variant="outline"
           onClick={() => {
             navigator.clipboard.writeText(
-              `https://wishy.backend.com${router.asPath}`
+              `https://wishy.vercel.app${router.asPath}`
             );
             toast({
               title: "Link copied!",
