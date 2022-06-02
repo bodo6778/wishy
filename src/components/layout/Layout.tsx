@@ -41,13 +41,6 @@ const Layout = ({ children }: LayoutProps) => {
     if (!token) return;
 
     try {
-      await fetch(`${process.env.API_URL}/getUsers`, {
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "Content-Type": "application/json",
-        },
-      });
-
       const profileRequest = await fetch(
         `${process.env.API_URL}/users/getProfile`,
         {
