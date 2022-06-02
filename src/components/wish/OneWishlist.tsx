@@ -7,6 +7,7 @@ import { getStorageValue } from "../../../utils/functions";
 import DeleteButton from "./DeleteButton/DeleteButton";
 import { useRecoilState } from "recoil";
 import { wishlistsState } from "state/atoms";
+import HideButton from "./HideButton/HideButton";
 
 interface OneWishlistProps {
   wishlist: WishlistType;
@@ -42,6 +43,32 @@ const OneWishlist: React.FC<OneWishlistProps> = ({ wishlist, editable }) => {
     }
   };
 
+  const hideWishlist = async () => {
+    const token = getStorageValue("token");
+    if (!token) return;
+
+    const response = await fetch(`${process.env.API_URL}/wishlist/hide`, {
+      method: "POST",
+      headers: {
+        "x-access-token": token,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        title,
+        hidden: !wishlist.hidden,
+      }),
+    });
+
+    setWishlist((prevWishlists) =>
+      prevWishlists.map((wishlist) =>
+        wishlist.title === title
+          ? { ...wishlist, hidden: !wishlist.hidden }
+          : wishlist
+      )
+    );
+    console.log(wishlists);
+  };
+
   return (
     <>
       <Flex justifyContent="space-between" alignItems="center">
@@ -49,7 +76,17 @@ const OneWishlist: React.FC<OneWishlistProps> = ({ wishlist, editable }) => {
           {wishlist.title}
         </Text>
         {editable && (
-          <DeleteButton aria-label="Delete Wishlist" onClick={deleteWishlist} />
+          <Flex>
+            <HideButton
+              aria-label="Hide Wishlist"
+              hidden={wishlist.hidden}
+              onClick={hideWishlist}
+            />
+            <DeleteButton
+              aria-label="Delete Wishlist"
+              onClick={deleteWishlist}
+            />
+          </Flex>
         )}
       </Flex>
 

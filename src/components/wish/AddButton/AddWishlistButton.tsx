@@ -27,27 +27,24 @@ const AddWishlistButton: React.FC<AddWishlistButtonProps> = ({}) => {
     const token = getStorageValue("token");
     if (!token) return;
 
-    const response = await fetch(
-      // "http://localhost:3001/api/wishlist/add",
-      `${process.env.API_URL}/wishlist/add`,
-      {
-        method: "POST",
-        headers: {
-          "x-access-token": token,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          title,
-          description,
-        }),
-      }
-    );
+    const response = await fetch(`${process.env.API_URL}/wishlist/add`, {
+      method: "POST",
+      headers: {
+        "x-access-token": token,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        title,
+        description,
+      }),
+    });
 
     if (response.status === 200) {
       const newWishlist: WishlistType = {
         title: title,
         description: description,
         wishes: [],
+        hidden: false,
       };
       setWishlist((prev: WishlistType[]) => prev.concat(newWishlist));
     } else {

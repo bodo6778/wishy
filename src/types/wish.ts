@@ -16,6 +16,7 @@ export type WishlistType = {
   title: string;
   description: string;
   wishes: WishType[];
+  hidden: boolean;
 };
 
 export type UserProfile = {
