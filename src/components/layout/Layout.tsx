@@ -18,14 +18,11 @@ const Layout = ({ children }: LayoutProps) => {
 
   const populateProfile = async () => {
     if (!token) return;
-    const req = await fetch(
-      "https://wishy-backend.vercel.app/api/users/getProfile",
-      {
-        headers: {
-          "x-access-token": token,
-        },
-      }
-    );
+    const req = await fetch(`${process.env.API_URL}/users/getProfile`, {
+      headers: {
+        "x-access-token": token,
+      },
+    });
 
     const data = await req.json();
     setProfile(data);
@@ -44,7 +41,7 @@ const Layout = ({ children }: LayoutProps) => {
     if (!token) return;
 
     try {
-      await fetch("https://wishy-backend.vercel.app/getUsers", {
+      await fetch(`${process.env.API_URL}/getUsers`, {
         headers: {
           "Access-Control-Allow-Origin": "*",
           "Content-Type": "application/json",
@@ -52,7 +49,7 @@ const Layout = ({ children }: LayoutProps) => {
       });
 
       const profileRequest = await fetch(
-        "https://wishy-backend.vercel.app/api/users/getProfile",
+        `${process.env.API_URL}/users/getProfile`,
         {
           headers: {
             "x-access-token": token,
@@ -63,7 +60,7 @@ const Layout = ({ children }: LayoutProps) => {
       const profileData = await profileRequest.json();
 
       const wishlistsRequest = await fetch(
-        "https://wishy-backend.vercel.app/api/wishes/getWishlists",
+        `${process.env.API_URL}/wishes/getWishlists`,
         {
           headers: {
             "Access-Control-Allow-Origin": "*",

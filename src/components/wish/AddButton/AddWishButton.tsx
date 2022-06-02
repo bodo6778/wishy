@@ -39,24 +39,21 @@ const AddWishButton: React.FC<AddWishButtonProps> = ({ wishlistTitle }) => {
     if (!token) return;
 
     try {
-      const response = await fetch(
-        "https://wishy-backend.vercel.app/api/wishes/add",
-        {
-          // const response = await fetch("http://localhost:3001/api/wishes/add", {
-          method: "POST",
-          headers: {
-            "x-access-token": token,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            wishlistTitle,
-            title,
-            description,
-            price,
-            need,
-          }),
-        }
-      );
+      const response = await fetch(`${process.env.API_URL}/wishes/add`, {
+        // const response = await fetch("http://localhost:3001/api/wishes/add", {
+        method: "POST",
+        headers: {
+          "x-access-token": token,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          wishlistTitle,
+          title,
+          description,
+          price,
+          need,
+        }),
+      });
 
       if (response.status === 400) {
         const responseJson = await response.json();

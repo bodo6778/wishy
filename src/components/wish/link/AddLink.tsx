@@ -53,7 +53,7 @@ const AddLink: React.FC<AddLinkProps> = ({
     if (!token) return;
 
     try {
-      await fetch("https://wishy-backend.vercel.app/api/wishes/addLink", {
+      await fetch(`${process.env.API_URL}/wishes/addLink`, {
         method: "POST",
         headers: {
           "x-access-token": token,

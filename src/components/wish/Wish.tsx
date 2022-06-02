@@ -33,7 +33,7 @@ const Wish: React.FC<WishProps> = ({ wish, wishlistTitle, editable }) => {
     const wishToDeleteTitle = wish?.title;
 
     try {
-      await fetch("https://wishy-backend.vercel.app/api/wishes/delete", {
+      await fetch(`${process.env.API_URL}/wishes/delete`, {
         method: "DELETE",
         headers: {
           "x-access-token": token,

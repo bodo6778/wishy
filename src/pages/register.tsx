@@ -89,23 +89,20 @@ const Register = () => {
     }
 
     try {
-      const res = await fetch(
-        "https://wishy-backend.vercel.app/api/users/register",
-        {
-          // const res = await fetch("http://localhost:3001/api/users/register", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            name,
-            username,
-            email: email.toLowerCase(),
-            password,
-            password2,
-          }),
-        }
-      );
+      const res = await fetch(`${process.env.API_URL}/users/register`, {
+        // const res = await fetch("http://localhost:3001/api/users/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name,
+          username,
+          email: email.toLowerCase(),
+          password,
+          password2,
+        }),
+      });
       if (res.status === 400) {
         const body = await res.json();
         throw body.error;

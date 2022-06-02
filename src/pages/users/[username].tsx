@@ -26,15 +26,12 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const { username } = params as { username: string };
 
   try {
-    const res = await fetch(
-      `https://wishy-backend.vercel.app/api/users/${username}`,
-      {
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    const res = await fetch(`${process.env.API_URL}/users/${username}`, {
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Content-Type": "application/json",
+      },
+    });
 
     const user = await res.json();
 

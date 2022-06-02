@@ -22,19 +22,16 @@ const OneWishlist: React.FC<OneWishlistProps> = ({ wishlist, editable }) => {
     const token = getStorageValue("token");
     if (!token) return;
 
-    const response = await fetch(
-      "https://wishy-backend.vercel.app/api/wishlist/delete",
-      {
-        method: "DELETE",
-        headers: {
-          "x-access-token": token,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          title,
-        }),
-      }
-    );
+    const response = await fetch(`${process.env.API_URL}/wishlist/delete`, {
+      method: "DELETE",
+      headers: {
+        "x-access-token": token,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        title,
+      }),
+    });
 
     const data = await response.json();
     if (data.status === "ok") {

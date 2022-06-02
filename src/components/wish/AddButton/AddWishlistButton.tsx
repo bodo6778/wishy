@@ -29,7 +29,7 @@ const AddWishlistButton: React.FC<AddWishlistButtonProps> = ({}) => {
 
     const response = await fetch(
       // "http://localhost:3001/api/wishlist/add",
-      "https://wishy-backend.vercel.app/api/wishlist/add",
+      `${process.env.API_URL}/wishlist/add`,
       {
         method: "POST",
         headers: {

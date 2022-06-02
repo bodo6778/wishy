@@ -29,19 +29,16 @@ const Login = () => {
 
   const loginUser = async (event: SyntheticEvent) => {
     event.preventDefault();
-    const response = await fetch(
-      "https://wishy-backend.vercel.app/api/users/login",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: email.toLocaleLowerCase(),
-          password,
-        }),
-      }
-    );
+    const response = await fetch(`${process.env.API_URL}/users/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: email.toLocaleLowerCase(),
+        password,
+      }),
+    });
 
     const data = await response.json();
 
