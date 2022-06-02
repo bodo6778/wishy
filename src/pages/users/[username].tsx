@@ -12,8 +12,6 @@ interface UserProfileDynamicPageProps {
 const UserProfileDynamicPage: NextPage<UserProfileDynamicPageProps> = ({
   user,
 }) => {
-  const token = getStorageValue("token");
-
   return (
     <>
       <OwnProfile user={user} />

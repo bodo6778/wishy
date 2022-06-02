@@ -1,5 +1,8 @@
-import { Box, Text } from "@chakra-ui/react";
+import { ExternalLinkIcon } from "@chakra-ui/icons";
+import { Box, Button, Flex, Text, useToast } from "@chakra-ui/react";
 import { NextPage } from "next";
+import { useRouter } from "next/dist/client/router";
+import { route } from "next/dist/next-server/server/router";
 import { useRecoilValue } from "recoil";
 import { userState, wishlistsState } from "state/atoms";
 import { UserProfile } from "types/wish";
@@ -13,6 +16,8 @@ const OwnProfile: NextPage<OwnProps> = ({ user }) => {
   const { name, username, wishlists } = user;
   const ownUsername = useRecoilValue(userState).username;
   const token = getStorageValue("token");
+  const router = useRouter();
+  const toast = useToast();
 
   const getNumberOfWishes = wishlists.reduce(
     (count, current) => count + current.wishes.length,
@@ -36,12 +41,36 @@ const OwnProfile: NextPage<OwnProps> = ({ user }) => {
       </Text>
       <Text fontSize="md">Here you can see your stats.</Text>
       <Box h={10}></Box>
-      <Text>
-        Currently you have {wishlists.length} wishlist
-        {wishlists.length !== 1 && "s"} with a total of {getNumberOfWishes} wish
-        {getNumberOfWishes !== 1 && "es"}.
-      </Text>
-      <Text mb={4}>Share your profile to show your friends what you wish!</Text>
+      <Flex justifyContent="space-between" alignItems="center">
+        <Box>
+          <Text>
+            Currently you have {wishlists.length} wishlist
+            {wishlists.length !== 1 && "s"} with a total of {getNumberOfWishes}{" "}
+            wish
+            {getNumberOfWishes !== 1 && "es"}.
+          </Text>
+          <Text mb={4}>
+            Share your profile to show your friends what you wish!
+          </Text>
+        </Box>
+        <Button
+          leftIcon={<ExternalLinkIcon />}
+          colorScheme="yellow"
+          variant="outline"
+          onClick={() => {
+            navigator.clipboard.writeText(
+              `https://wishy.backend.com${router.asPath}`
+            );
+            toast({
+              title: "Link copied!",
+              status: "success",
+              isClosable: true,
+            });
+          }}
+        >
+          Share
+        </Button>
+      </Flex>
     </Box>
   );
 };
