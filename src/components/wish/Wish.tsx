@@ -88,9 +88,11 @@ const Wish: React.FC<WishProps> = ({ wish, wishlistTitle, editable }) => {
             {wish.price}$
           </Text>
           <Flex px="4px" alignItems="center">
-            {[...Array(wish.need)].map((_, index) => (
-              <StarIcon color="yellow.500" size="1rem" p="1px" key={index} />
-            ))}
+            {[...Array(parseInt(wish.need as unknown as string))].map(
+              (_, index) => (
+                <StarIcon color="yellow.500" size="1rem" p="1px" key={index} />
+              )
+            )}
             {[...Array(3 - wish.need)].map((_, index) => (
               <StarIcon
                 color="transparent"

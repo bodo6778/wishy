@@ -47,7 +47,7 @@ const OneWishlist: React.FC<OneWishlistProps> = ({ wishlist, editable }) => {
     const token = getStorageValue("token");
     if (!token) return;
 
-    const response = await fetch(`${process.env.API_URL}/wishlist/hide`, {
+    await fetch(`${process.env.API_URL}/wishlist/hide`, {
       method: "POST",
       headers: {
         "x-access-token": token,
