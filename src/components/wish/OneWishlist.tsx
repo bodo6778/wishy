@@ -23,7 +23,7 @@ const OneWishlist: React.FC<OneWishlistProps> = ({ wishlist, editable }) => {
   const sortByNeed = () => {
     setSorted((prevSorted) => !prevSorted);
     setWishlist((prevWishlists) => {
-      var wishlists: WishlistType[] = JSON.parse(JSON.stringify(prevWishlists)); // Copy array state
+      let wishlists: WishlistType[] = JSON.parse(JSON.stringify(prevWishlists)); // Copy array state
       const index = wishlists.findIndex((w) => w.title === title);
       if (sorted) {
         wishlists[index].wishes.sort(
