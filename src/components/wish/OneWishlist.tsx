@@ -1,4 +1,4 @@
-import { Flex, Text } from "@chakra-ui/react";
+import { Button, Flex, Text } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { WishlistType, WishType } from "types/wish";
 import AddWishButton from "./AddButton/AddWishButton";
@@ -8,6 +8,7 @@ import DeleteButton from "./DeleteButton/DeleteButton";
 import { useRecoilState } from "recoil";
 import { wishlistsState } from "state/atoms";
 import HideButton from "./HideButton/HideButton";
+import { ChevronDownIcon, ChevronUpIcon } from "@chakra-ui/icons";
 
 interface OneWishlistProps {
   wishlist: WishlistType;
@@ -16,8 +17,30 @@ interface OneWishlistProps {
 
 const OneWishlist: React.FC<OneWishlistProps> = ({ wishlist, editable }) => {
   const [wishlists, setWishlist] = useRecoilState(wishlistsState);
-
+  const [sorted, setSorted] = useState(false); //false - ascended | true - descended
   const title = wishlist.title;
+
+  const sortByNeed = () => {
+    setSorted((prevSorted) => !prevSorted);
+    setWishlist((prevWishlists) => {
+      var wishlists: WishlistType[] = JSON.parse(JSON.stringify(prevWishlists)); // Copy array state
+      const index = wishlists.findIndex((w) => w.title === title);
+      if (sorted) {
+        wishlists[index].wishes.sort(
+          (a, b) =>
+            parseInt(b.need as unknown as string) -
+            parseInt(a.need as unknown as string)
+        );
+      } else {
+        wishlists[index].wishes.sort(
+          (a, b) =>
+            parseInt(a.need as unknown as string) -
+            parseInt(b.need as unknown as string)
+        );
+      }
+      return wishlists;
+    });
+  };
 
   const deleteWishlist = async () => {
     const token = getStorageValue("token");
@@ -37,9 +60,6 @@ const OneWishlist: React.FC<OneWishlistProps> = ({ wishlist, editable }) => {
     const data = await response.json();
     if (data.status === "ok") {
       setWishlist(wishlists.filter((wishlist) => wishlist.title !== title)); // Filter the wishlists[] by title to delete the current wishlist
-    }
-    if (data.status !== "ok") {
-      console.log(data);
     }
   };
 
@@ -66,7 +86,6 @@ const OneWishlist: React.FC<OneWishlistProps> = ({ wishlist, editable }) => {
           : wishlist
       )
     );
-    console.log(wishlists);
   };
 
   return (
@@ -76,7 +95,16 @@ const OneWishlist: React.FC<OneWishlistProps> = ({ wishlist, editable }) => {
           {wishlist.title}
         </Text>
         {editable && (
-          <Flex>
+          <Flex alignItems="center">
+            <Button
+              variant="link"
+              size="sm"
+              colorScheme="black"
+              onClick={sortByNeed}
+            >
+              <Text>Need</Text>
+              {sorted ? <ChevronDownIcon /> : <ChevronUpIcon />}
+            </Button>
             <HideButton
               aria-label="Hide Wishlist"
               hidden={wishlist.hidden}

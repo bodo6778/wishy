@@ -9,6 +9,7 @@ const styles: Styles = {
     body: {
       color: mode("gray.800", "whiteAlpha.900")(props),
       bg: mode("#F0EDEA", "gray.900")(props),
+      ":focus": "none",
     },
   }),
 };
@@ -32,11 +33,18 @@ const customTheme = extendTheme({
   },
   components: {
     /** Example */
-    // Button: {
-    //   baseStyle: {
-    //     borderRadius: 24,
-    //   },
-    // },
+    Button: {
+      baseStyle: {
+        _focus: "none",
+        _focusVisible: { boxShadow: "0px 0px 0px 1px rgba(0,0,0,0.75)" },
+      },
+    },
+    Link: {
+      baseStyle: {
+        _focus: "none",
+        _focusVisible: { boxShadow: "0px 0px 0px 1px rgba(0,0,0,0.75)" },
+      },
+    },
     Input: {
       variants: {
         outline: {
