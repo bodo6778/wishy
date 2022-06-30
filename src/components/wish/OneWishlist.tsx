@@ -91,9 +91,20 @@ const OneWishlist: React.FC<OneWishlistProps> = ({ wishlist, editable }) => {
   return (
     <>
       <Flex justifyContent="space-between" alignItems="center">
-        <Text fontWeight="bold" fontSize="24px" position="relative">
-          {wishlist.title}
-        </Text>
+        <Flex justifyContent="space-between" width="100%" pr={5}>
+          <Text fontWeight="bold" fontSize="24px" position="relative">
+            {wishlist.title}
+          </Text>
+          <Text
+            fontStyle="italic"
+            fontSize="22px"
+            position="relative"
+            color="grey"
+          >
+            {wishlist.description}
+          </Text>
+        </Flex>
+
         {editable && (
           <Flex alignItems="center">
             <Button
