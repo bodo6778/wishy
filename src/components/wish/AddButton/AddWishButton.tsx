@@ -25,22 +25,41 @@ const AddWishButton: React.FC<AddWishButtonProps> = ({ wishlistTitle }) => {
   const toast = useToast();
 
   const [title, setTitle] = useState("");
+  const [titleError, setTitleError] = useState(false);
+
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
-  const [need, setNeed] = useState("");
 
-  const handleTitleChange = (e: any) => setTitle(e.target.value);
+  const [need, setNeed] = useState("");
+  const [needError, setNeedError] = useState(false);
+
+  const handleTitleChange = (e: any) => {
+    setTitleError(false);
+    setTitle(e.target.value);
+  };
   const handleDescriptionChange = (e: any) => setDescription(e.target.value);
   const handlePriceChange = (e: any) => setPrice(e.target.value);
-  const handleNeedChange = (e: any) => setNeed(e.target.value.slice(0, 1));
+  const handleNeedChange = (e: any) => {
+    setNeedError(false);
+    setNeed(e.target.value.slice(0, 1));
+  };
 
   const addWish = async () => {
+    event?.preventDefault();
+    if (title === "") {
+      setTitleError(true);
+      return;
+    }
+    if (need === "") {
+      setNeedError(true);
+      return;
+    }
+
     const token = getStorageValue("token");
     if (!token) return;
 
     try {
       const response = await fetch(`${process.env.API_URL}/wishes/add`, {
-        // const response = await fetch("http://localhost:3001/api/wishes/add", {
         method: "POST",
         headers: {
           "x-access-token": token,
@@ -95,6 +114,12 @@ const AddWishButton: React.FC<AddWishButtonProps> = ({ wishlistTitle }) => {
         });
       }
     }
+
+    setShowForm(!showForm);
+    setTitle("");
+    setDescription("");
+    setPrice("");
+    setNeed("");
   };
 
   return (
@@ -103,12 +128,14 @@ const AddWishButton: React.FC<AddWishButtonProps> = ({ wishlistTitle }) => {
         <>
           <form onSubmit={addWish}>
             <Stack gap={1}>
-              <Input
-                placeholder="Title"
-                id="title"
-                value={title}
-                onChange={handleTitleChange}
-              />
+              <FormControl isInvalid={titleError}>
+                <Input
+                  placeholder="Title"
+                  id="title"
+                  value={title}
+                  onChange={handleTitleChange}
+                />
+              </FormControl>
               <Input
                 placeholder="Description"
                 id="description"
@@ -122,7 +149,7 @@ const AddWishButton: React.FC<AddWishButtonProps> = ({ wishlistTitle }) => {
                 value={price}
                 onChange={handlePriceChange}
               />
-              <FormControl>
+              <FormControl isInvalid={needError}>
                 <Select
                   id="need"
                   placeholder="Need"
@@ -144,11 +171,6 @@ const AddWishButton: React.FC<AddWishButtonProps> = ({ wishlistTitle }) => {
                   }
                   width="96%"
                   onClick={() => {
-                    setShowForm(!showForm);
-                    setTitle("");
-                    setDescription("");
-                    setPrice("");
-                    setNeed("");
                     addWish();
                   }}
                 />

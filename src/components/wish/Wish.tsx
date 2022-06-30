@@ -76,10 +76,10 @@ const Wish: React.FC<WishProps> = ({ wish, wishlistTitle, editable }) => {
             {wish.description}
           </Text>
           <Text color="blackAlpha.400" px="4px">
-            {wish.price}$
+            {wish.price ? wish.price + "$" : ""}
           </Text>
           <Flex px="4px" alignItems="center">
-            {[...Array(parseInt(wish.need as unknown as string))].map(
+            {[...Array(parseInt((wish.need as unknown as string) || "1"))].map(
               (_, index) => (
                 <StarIcon color="yellow.500" size="1rem" p="1px" key={index} />
               )

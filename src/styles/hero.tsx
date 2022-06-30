@@ -1,13 +1,18 @@
 import React from "react";
 
-const Hero = () => {
+interface HeroProps {
+  width: string;
+  height: string;
+}
+
+const Hero: React.FC<HeroProps> = ({ width, height }) => {
   return (
     <div className="Hero">
       <svg
         data-name="Layer 1"
         xmlns="http://www.w3.org/2000/svg"
-        width="429"
-        height="400"
+        width={width}
+        height={height}
         viewBox="0 0 605.9236 564.84933"
       >
         <path
