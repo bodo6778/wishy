@@ -1,10 +1,5 @@
-import { atom, selector } from "recoil";
-import jwt from "jsonwebtoken";
+import { atom } from "recoil";
 import { WishlistType } from "types/wish";
-
-type loginState = {
-  localValue: string | null;
-};
 
 export type userProfileState = {
   username: string;

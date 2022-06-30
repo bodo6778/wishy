@@ -1,6 +1,5 @@
-import { AddIcon } from "@chakra-ui/icons";
-import { Box, Button, ButtonProps, Flex } from "@chakra-ui/react";
-import React, { Component, ReactNode } from "react";
+import { Button, ButtonProps } from "@chakra-ui/react";
+import React, { ReactNode } from "react";
 
 interface AddButtonProps {
   customType: "wish" | "wishlist";

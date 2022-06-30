@@ -1,8 +1,7 @@
 import { Box, Stack } from "@chakra-ui/react";
-import React, { useEffect } from "react";
+import React from "react";
 import { WishlistType } from "types/wish";
-import { useRecoilState, useRecoilValue } from "recoil";
-import { getStorageValue } from "../../../utils/functions";
+import { useRecoilValue } from "recoil";
 import OneWishlist from "components/wish/OneWishlist";
 import AddWishlistButton from "./AddButton/AddWishlistButton";
 import { wishlistsState } from "state/atoms";

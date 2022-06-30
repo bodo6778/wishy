@@ -2,9 +2,8 @@ import { ExternalLinkIcon } from "@chakra-ui/icons";
 import { Box, Button, Flex, Text, useToast } from "@chakra-ui/react";
 import { NextPage } from "next";
 import { useRouter } from "next/dist/client/router";
-import { route } from "next/dist/next-server/server/router";
 import { useRecoilValue } from "recoil";
-import { userState, wishlistsState } from "state/atoms";
+import { userState } from "state/atoms";
 import { UserProfile } from "types/wish";
 import { getStorageValue } from "../../../utils/functions";
 

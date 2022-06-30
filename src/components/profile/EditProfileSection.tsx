@@ -1,6 +1,5 @@
 import { Button, Input, Stack, Text, Textarea } from "@chakra-ui/react";
-import { useRouter } from "next/dist/client/router";
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import { useSetRecoilState } from "recoil";
 import { userProfileState, userState } from "state/atoms";
 import { getStorageValue } from "../../../utils/functions";
@@ -19,7 +18,6 @@ const EditProfileSection: React.FC<EditProfileSectionProps> = ({ profile }) => {
   const [newDescription, setNewDescription] = useState("");
 
   const token = getStorageValue("token");
-  const router = useRouter();
 
   const settingsHaveChanged = useMemo(
     () =>

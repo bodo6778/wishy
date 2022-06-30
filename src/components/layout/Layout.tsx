@@ -1,6 +1,6 @@
 import { Box, Flex } from "@chakra-ui/react";
 import { ReactNode, useEffect } from "react";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import { userState, wishlistsState } from "state/atoms";
 import { getStorageValue } from "../../../utils/functions";
 

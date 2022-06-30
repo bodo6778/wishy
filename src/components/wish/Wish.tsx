@@ -1,20 +1,11 @@
-import { ChevronLeftIcon, DeleteIcon, StarIcon } from "@chakra-ui/icons";
-import {
-  Text,
-  Flex,
-  Box,
-  SimpleGrid,
-  Collapse,
-  Button,
-} from "@chakra-ui/react";
+import { ChevronLeftIcon, StarIcon } from "@chakra-ui/icons";
+import { Text, Flex, Box } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { useSetRecoilState } from "recoil";
 import { wishlistsState } from "state/atoms";
 import { WishType } from "types/wish";
 import { getStorageValue } from "../../../utils/functions";
 import DeleteButton from "./DeleteButton/DeleteButton";
-import AddLink from "./link/AddLink";
-import LinkBar from "./link/LinkBar";
 import LinkList from "./link/LinkList";
 
 interface WishProps {
