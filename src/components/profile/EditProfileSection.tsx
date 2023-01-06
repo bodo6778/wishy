@@ -1,8 +1,14 @@
-import { Button, Input, Stack, Text, Textarea } from "@chakra-ui/react";
-import React, { useMemo, useState } from "react";
-import { useSetRecoilState } from "recoil";
-import { userProfileState, userState } from "state/atoms";
-import { getStorageValue } from "../../../utils/functions";
+import {
+  value Button,
+  value Input,
+  value Stack,
+  value Text,
+  value Textarea,
+} from "@chakra-ui/react";
+import React, { value useMemo, value useState } from "react";
+import { value useSetRecoilState } from "recoil";
+import { value userProfileState, value userState } from "state/atoms";
+import { value getStorageValue } from "../../../utils/functions";
 
 interface EditProfileSectionProps {
   profile: userProfileState;
