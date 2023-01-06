@@ -1,4 +1,4 @@
-import { theme, extendTheme } from "@chakra-ui/react";
+import { extendTheme, theme } from "@chakra-ui/react";
 
 import type { Styles } from "@chakra-ui/theme-tools";
 import { mode } from "@chakra-ui/theme-tools";
@@ -9,7 +9,6 @@ const styles: Styles = {
     body: {
       color: mode("gray.800", "whiteAlpha.900")(props),
       bg: mode("#F0EDEA", "gray.900")(props),
-      ":focus": "none",
     },
   }),
 };
